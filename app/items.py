@@ -4,7 +4,6 @@ CONNECTER = sqlite3.connect('app/adventure.db')
 CURSOR = CONNECTER.cursor()
 
 class Item():
-    all = []
     def __init__(self, id, item_name, item_description, item_type):
         self.id = id
         self.item_name = item_name
@@ -55,6 +54,21 @@ class Item():
         else:
             raise AttributeError
     
-items = CURSOR.execute("SELECT * FROM items").fetchall()
-for item in items:
-    Item(item.items())
+    @classmethod
+    def find_item_by_id(cls, id):
+        sql="SELECT * FROM items WHERE id=?"
+        try:
+            if isinstance(id, int):
+                return cls.new_from_db(CURSOR.execute(sql, (id, )).fetchone())
+            else:
+                raise ValueError
+        except Exception as e:
+            print(e)
+    
+    @classmethod
+    def new_from_db(cls, items):
+        return Item(*items)
+    
+# items = CURSOR.execute("SELECT * FROM items").fetchall()
+# for item in items:
+#     Item(item.items())

@@ -55,7 +55,7 @@ def top(self):
 
 @top.setter
 def top(self, top):
-    if isinstance(top, Room) or not top:
+    if isinstance(top, Room) or top == 1:
         self._top = top
     else:
         raise AttributeError("This needs to be a valid direction: Top, Bottom, Left or Right")
@@ -66,7 +66,7 @@ def bottom(self):
 
 @bottom.setter
 def bottom(self, bottom):
-    if isinstance(bottom, Room) or not bottom:
+    if isinstance(bottom, Room) or bottom == 1:
         self._bottom = bottom
     else:
         raise AttributeError("This needs to be a valid direction: Top, Bottom, Left or Right")
@@ -77,7 +77,7 @@ def left(self):
 
 @top.setter
 def top(self, left):
-    if isinstance(left, Room) or not left:
+    if isinstance(left, Room) or left == 1:
         self._left = left
     else:
         raise AttributeError("This needs to be a valid direction: Top, Bottom, Left or Right")
@@ -88,7 +88,7 @@ def right(self):
 
 @right.setter
 def right(self, right):
-    if isinstance(right, Room) or not right:
+    if isinstance(right, Room) or right ==1:
         self._right = right
     else:
         raise AttributeError("This needs to be a valid direction: Top, Bottom, Left or Right")

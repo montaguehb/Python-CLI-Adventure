@@ -105,8 +105,8 @@ def find_room_by_id(cls, id):
         print(e)
 
 @classmethod
-def new_room(cls, rooms):
+def new_room(cls, *rooms):
     return Room(*rooms)
 
-#
-#
+
+

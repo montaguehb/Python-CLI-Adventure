@@ -160,4 +160,6 @@ cython_debug/
 #.idea/
 
 *.csv
-queries.sql
+*_test.py
+.vscode/
+*.sql

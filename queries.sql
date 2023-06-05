@@ -1,10 +1,10 @@
--- CREATE TABLE enemy (
---     id INTEGER PRIMARY KEY,
---     name TEXT,
---     level INT,
---     type TEXT,
---     mechanics TEXT
--- );
+IF NOT EXISTS CREATE TABLE enemy (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    level INT,
+    type TEXT,
+    mechanics TEXT
+);
 
 INSERT INTO enemy (Name, Level, Type, Mechanics)
 VALUES

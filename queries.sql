@@ -1,9 +1,13 @@
-CREATE TABLE items (
+CREATE TABLE IF NOT EXISTS rooms (
     "id" INTEGER PRIMARY KEY,
-    "item_name" TEXT,
-    "item_description" TEXT,
-    "item_type" TEXT
+    "item_id" INTEGER,
+    "enemy_id" INTEGER,
+    "top" BOOLEAN,
+    "bottom" BOOLEAN,
+    "left" BOOLEAN,
+    "right" BOOLEAN,
+    FOREIGN KEY ("item_id") REFERENCES items(id)
 );
 
--- .mode csv
--- .import items.csv items
+-- .mode csv;
+-- .import data.csv rooms;

@@ -1,4 +1,4 @@
-IF NOT EXISTS CREATE TABLE enemy (
+CREATE TABLE IF NOT EXISTS enemy (
     id INTEGER PRIMARY KEY,
     name TEXT,
     level INT,

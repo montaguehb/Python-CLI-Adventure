@@ -58,7 +58,7 @@ def top(self, top):
     if isinstance(top, Room) or not top:
         self._top = top
     else:
-        raise AttributeError("This needs to be a boolean")
+        raise AttributeError("This needs to be a valid direction: Top, Bottom, Left or Right")
     
 @property
 def bottom(self):
@@ -69,7 +69,7 @@ def bottom(self, bottom):
     if isinstance(bottom, Room) or not bottom:
         self._bottom = bottom
     else:
-        raise AttributeError("This needs to be a boolean")
+        raise AttributeError("This needs to be a valid direction: Top, Bottom, Left or Right")
     
 @property
 def left(self):
@@ -80,7 +80,7 @@ def top(self, left):
     if isinstance(left, Room) or not left:
         self._left = left
     else:
-        raise AttributeError("This needs to be a boolean")
+        raise AttributeError("This needs to be a valid direction: Top, Bottom, Left or Right")
     
 @property
 def right(self):
@@ -91,7 +91,7 @@ def right(self, right):
     if isinstance(right, Room) or not right:
         self._right = right
     else:
-        raise AttributeError("This needs to be a boolean")
+        raise AttributeError("This needs to be a valid direction: Top, Bottom, Left or Right")
 
 
 

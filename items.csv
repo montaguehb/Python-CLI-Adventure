@@ -1,0 +1,17 @@
+1,add,Stages file changes to be committed,Base weapon
+2,commit,Commits the staged changes to the repo,Base weapon
+3,init,Initializes an empty git repo,Base weapon
+4,log,View all commits to a repo,Info
+5,status,See a summary of staged changes,Info
+6,diff,View changes to be committed,Base weapon
+7,branch,lists all existing branches,Info
+8,switch,switch to another branch,Base weapon
+9,merge,puts a forked history back together,Base weapon
+10,checkout,allows navigation between git branches,Base weapon
+11,clone,creates a copy of existing git repository,Base weapon
+12,fetch,download content from a remote repository,Base weapon
+13,push,used to upload local repository content to a remote repository,Base weapon
+14,pull,used to fetch and download content from a remote repository,Base weapon
+15,remote,manage the set of repositories whose branches you track,Base weapon
+16,grep,look for specified patterns in the tracked files work tree,Info
+17,show,show one or more objects,Info

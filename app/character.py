@@ -9,7 +9,19 @@ class Character():
         self.health = health
         self.highest_score = highest_score
         self.score = 0
-        
+        self.current_room = None
+    
+    @property
+    def current_room(self):
+        return self._current_room
+    
+    @current_room.setter
+    def current_room(self, current_room):
+        if isinstance(current_room, int):
+            self._current_room = current_room
+        else:
+            raise AttributeError("current_room must be of type int")
+    
     @property
     def id(self):
         return self._id

@@ -9,7 +9,7 @@ class Character():
         self.health = health
         self.highest_score = highest_score
         self.score = 0
-        self.current_room = None
+        self.current_room = 0
     
     @property
     def current_room(self):

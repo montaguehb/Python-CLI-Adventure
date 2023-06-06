@@ -67,8 +67,8 @@ class Item():
             print(e)
     
     @classmethod
-    def new_from_db(cls, items):
-        return Item(*items)
+    def new_from_db(cls, args):
+        return Item(*args)
     
 # items = CURSOR.execute("SELECT * FROM items").fetchall()
 # for item in items:

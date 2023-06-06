@@ -1,7 +1,7 @@
 import sqlite3
 
-CONNECTER = sqlite3.connect('app/adventure.db')
-CURSOR = CONNECTER.cursor()
+CONNECTOR = sqlite3.connect('app/adventure.db')
+CURSOR = CONNECTOR.cursor()
 
 class Item():
     def __init__(self, id, item_name, item_description, item_type):

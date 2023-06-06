@@ -16,7 +16,7 @@ class Item():
     
     @id.setter
     def id(self, id):
-        if not hasattr(self, "id") and isinstance(id, int):
+        if not hasattr(self, "_id") and isinstance(id, int):
             self._id = id
         else:
             raise AttributeError("id is immutable and must be of type int")

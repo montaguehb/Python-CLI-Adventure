@@ -66,4 +66,17 @@ class Enemy():
         else:
             raise AttributeError("fight_mechanics must be of type str")
         
-    
+    @classmethod
+    def find_ememy_by_id(cls,id):
+        sql="SELECT * FROM enemies WHERE id=?"
+        try:
+            if isinstance(id,int):
+                return cls.new_from_db(CURSOR.execute(sql, (id, )).fetchone())
+            else:
+                raise ValueError
+        except Exception as e:
+            print(e)
+            
+    @classmethod
+    def new_from_db(cls,enemies):
+        return Enemy(*enemies)

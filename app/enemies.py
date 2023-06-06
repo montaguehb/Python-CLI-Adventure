@@ -50,7 +50,7 @@ class Enemy():
     
     @type.setter
     def type(self, type):
-        if type== "easy" or "medium" or "hard":
+        if type in ("easy", "medium" , "hard"):
             self._type = type
         else:
             raise AttributeError("type must be 'easy', 'medium', or 'hard'")
@@ -67,7 +67,7 @@ class Enemy():
             raise AttributeError("fight_mechanics must be of type str")
         
     @classmethod
-    def find_ememy_by_id(cls,id):
+    def find_enemy_by_id(cls,id):
         sql="SELECT * FROM enemies WHERE id=?"
         try:
             if isinstance(id,int):
@@ -78,5 +78,5 @@ class Enemy():
             print(e)
             
     @classmethod
-    def new_from_db(cls,enemies):
-        return Enemy(*enemies)
+    def new_from_db(cls,enemy):
+        return Enemy(*enemy)

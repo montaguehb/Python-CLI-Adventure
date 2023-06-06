@@ -1,0 +1,2 @@
+class Inventory():
+    pass

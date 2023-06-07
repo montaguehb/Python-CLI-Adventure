@@ -25,13 +25,13 @@ class Floor():
     def get_all_rooms(self):
         sql = "SELECT * FROM rooms"
         return [Room(room[0],
-            Item.find_item_by_id(1), 
-            Enemy.find_enemy_by_id(1),
-            room[3],
-            room[4],
-            room[5],
-            room[6]) 
-            for room in CURSOR.execute(sql).fetchall()]
+                     Item.find_item_by_id(1), 
+                     Enemy.find_enemy_by_id(1),
+                     room[3],
+                     room[4],
+                     room[5],
+                     room[6]) 
+                for room in CURSOR.execute(sql).fetchall()]
 
     def attack(self, input):
         enemy = self.current_room.enemy

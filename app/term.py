@@ -1,5 +1,6 @@
 import click
 import sys
+import random
 from scripts import *
 from rich.console import Console
 from rich.theme import Theme
@@ -68,6 +69,8 @@ def char_type():
 
 def check_exit(string):
     if string == ".exit":
+        click.echo("""It appears your logic is no match for the treacherous beasts of the Git Graveyard!
+                    We are not surprised as the Git Graveyard is no place for the faint of heart!""")
         sys.exit()
 
 def combat(inventory, floor, character):
@@ -80,7 +83,7 @@ def combat(inventory, floor, character):
         show_commands(floor)
         floor.attack(attack)    
     if character.health <= 0:
-        return game_over()    
+        return game_over(floor.room.enemy.enemy_name, character)    
                        
 def move(floor):
     directions = [key for key, value in floor.room.directions.items() if value > 0]
@@ -102,23 +105,26 @@ def move(floor):
         else:
             console.print("Please input a valid direction", style="failure")
 
-def game_over():
-    click.echo("You've died")
+def game_over(enemy_name, character):
+    click.echo(read_("./app/txt/game_over.txt").format(enemy_name=enemy_name))
     while repeat not in ("y", "n"):
         repeat = click.prompt("play again?", type=str)
         check_exit(repeat)
         if repeat == "y":
+            with open("./app/txt/try_again.txt", "r") as file:
+                text = file.read().splitlines()
+                print(text[random.randint(0, len(text) - 1)].format(username=character.username))
             return True
         elif repeat == "n":
             return False
 
 def end():
-    click.echo()
+    click.echo("end")
 
 def show_commands(floor):
     click.echo(floor.inventory.items)
 
-def read(file):
+def read_(file):
     with open(file, "r") as file:
         return file.read()
                    

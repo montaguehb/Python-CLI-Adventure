@@ -17,7 +17,27 @@ class Floor():
         self.inventory = inventory
         self.attack_success = []
         self.attack_fail = []
+        self.new_monster = []
+        self.defeated_enemy = []
     
+    @property
+    def defeated_enemy(self):
+        return self._defeated_enemy
+    
+    @defeated_enemy.setter
+    def defeated_enemy(self, enemy):
+        with open("./app/txt/defeated.txt", "r") as f:
+            self._defeated_enemy = f.read().splitlines()
+            
+    @property
+    def new_monster(self):
+        return self._new_monster
+    
+    @new_monster.setter
+    def new_monster(self, monster):
+        with open("./app/txt/new_monster.txt", "r") as f:
+            self._new_monster = f.read().splitlines()
+            
     @property
     def attack_success(self):
         return self._attack_success
@@ -39,7 +59,8 @@ class Floor():
             self._attack_fail = f.read().splitlines() 
 
     def enemy_encounter(self):
-        print(f"oh look a bad guy")
+        print(self.new_monster[random.randint(0, len(self.new_monster) - 1)].format(
+                enemy_name = self.room.enemy.enemy_name))
         print(f"looks like they are weak agaist {self.enemy_weaknesses()}")
         if len(self.enemy_weaknesses())>1:
             print("the order is important")
@@ -68,7 +89,7 @@ class Floor():
     def take_damage(self, attack):
         self.character.health -= self.room.enemy.level
         if self.character.health <=3:
-            print("low health statement")
+            print(f"{self.character.username}, your health has diminished quickly.  Tread carefully for the next encounter may prove to be your last!")
         sql = "UPDATE characters SET health=:1 WHERE id=:2"
         CURSOR.execute(sql, (self.character.health,self.character.id))
         print(self.attack_fail[random.randint(0, len(self.attack_fail) - 1)].format(
@@ -79,7 +100,9 @@ class Floor():
             ))    
             
     def enemy_defeated(self):
-        print(f"You have defeated {self.room.enemy.enemy_name}")
+        print(self.defeated_enemy[random.randint(0, len(self.defeated_enemy) - 1)].format(
+            enemy_name=self.room.enemy.enemy_name
+            ))
         if self.room.item: 
             self.inventory.add_new_item(self.room.item)
             self.defeated.append(self.room.enemy)             

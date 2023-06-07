@@ -107,14 +107,3 @@ class Character():
             self._id = CURSOR.execute("SELECT id FROM characters WHERE username=?", (self.username, )).fetchone()[0]
         except Exception as e:
             print(e)
-            
-    def attack(self):
-        enemy = self.current_room.enemy
-        if input in self.inventory and input == enemy.fight_mechanics[0]:
-            enemy.fight_mechanics.pop(0)
-            print("attack success language")
-            if enemy.fight_mechanics == []:
-                print("enemy defeated language")
-        else:
-            self.health -= enemy.level
-            print("attack failed language")

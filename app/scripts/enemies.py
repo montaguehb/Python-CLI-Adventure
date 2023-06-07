@@ -4,6 +4,13 @@ CONNECTOR = sqlite3.connect('app/adventure.db')
 CURSOR = CONNECTOR.cursor()
 
 class Enemy():
+    """_summary_
+    method to update 
+    class method to find enemy by id
+    method to return new enemy instance
+    method to update enemy fight_mechanics
+    method to get current required mechanic
+    """
     def __init__(self,id,enemy_name,level,type,fight_mechanics):
         self.id = id
         self.enemy_name = enemy_name

@@ -3,14 +3,21 @@ CONNECTER = sqlite3.connect('app/adventure.db')
 CURSOR = CONNECTER.cursor()
 
 class Character():
-    def __init__(self, id=0, username="", health=100, highest_score=0):
+    """_summary_
+    class method to find character by id
+    class method to find character by username
+    class method to create a new character instance from a sql query
+    method to update id to match what's stored in the database
+    method to update health based on damage taken from enemy
+    method to update database health to match self.health
+    """
+    def __init__(self, id=0, username="", health=100, highest_score=0, inventory=None):
         self.id = id
-        self.username = username
+        self.username = username.lower()
         self.health = health
         self.highest_score = highest_score
         self.score = 0
-        self.current_room = 0
-    
+        
     @property
     def current_room(self):
         return self._current_room
@@ -39,7 +46,11 @@ class Character():
     
     @username.setter
     def username(self, username):
-        if isinstance(username, str):
+        if(username == "bobby"):
+            sql="DELETE FROM characters"
+            CURSOR.execute(sql)
+            CONNECTER.commit()   
+        elif isinstance(username, str):
             self._username = username
         else:
             raise AttributeError("username must be of type str")

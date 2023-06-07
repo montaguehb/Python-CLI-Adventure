@@ -25,8 +25,8 @@ def create_new_char():
             click.echo("User already exists")
 
 def game(character):
-    inv_1 = inventory.Inventory(character=character)
-    inv_1.add_new_item(items.Item.find_item_by_id(1))
+    inv = inventory.Inventory(character)
+    floor = floors.Floor(character)
 
 def old_char():
     old_char = None

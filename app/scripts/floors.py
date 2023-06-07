@@ -1,5 +1,5 @@
 import sqlite3
-from app.rooms import Room
+from scripts.rooms import Room
 
 CONNECTOR = sqlite3.connect("app/adventure.db")
 CURSOR = CONNECTOR.cursor()

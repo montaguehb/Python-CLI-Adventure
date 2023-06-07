@@ -4,7 +4,7 @@ import random
 from scripts import *
 from rich.console import Console
 from rich.theme import Theme
-custom_theme = Theme({"success": "green", "loot": "yellow", "failure": "red", "neutral":"blue", "character":"bold magenta"})
+custom_theme = Theme({"success": "green", "loot": "yellow", "failure": "red", "neutral":"blue", "character":"bold magenta", "starting": "bold cyan"})
 console = Console(theme=custom_theme)
 
 stdin = click.get_text_stream("stdin")
@@ -14,7 +14,7 @@ def main():
     game(character)
     
 def start():
-    console.print(read("./app/txt/welcome.txt"), style="neutral")
+    console.print(read_("./app/txt/welcome.txt"), style="starting")
     return char_type()
 
 def create_new_char():
@@ -69,8 +69,8 @@ def char_type():
 
 def check_exit(string):
     if string == ".exit":
-        click.echo("""It appears your logic is no match for the treacherous beasts of the Git Graveyard!
-                    We are not surprised as the Git Graveyard is no place for the faint of heart!""")
+        console.print("""It appears your logic is no match for the treacherous beasts of the Git Graveyard!
+                    We are not surprised as the Git Graveyard is no place for the faint of heart!""", style="failure")
         sys.exit()
 
 def combat(inventory, floor, character):
@@ -84,7 +84,7 @@ def combat(inventory, floor, character):
         floor.attack(attack)    
     if character.health <= 0:
         return game_over(floor.room.enemy.enemy_name, character)    
-                       
+
 def move(floor):
     directions = [key for key, value in floor.room.directions.items() if value > 0]
     direction = ""
@@ -113,7 +113,7 @@ def game_over(enemy_name, character):
         if repeat == "y":
             with open("./app/txt/try_again.txt", "r") as file:
                 text = file.read().splitlines()
-                print(text[random.randint(0, len(text) - 1)].format(username=character.username))
+                console.print(text[random.randint(0, len(text) - 1)].format(username=character.username), style="success")
             return True
         elif repeat == "n":
             return False
@@ -122,12 +122,12 @@ def end():
     click.echo("end")
 
 def show_commands(floor):
-    click.echo(floor.inventory.items)
+    console.print(floor.inventory.items, style="loot")
 
 def read_(file):
     with open(file, "r") as file:
         return file.read()
-                   
+
 if __name__ == "__main__":
     playing = True
     while playing:

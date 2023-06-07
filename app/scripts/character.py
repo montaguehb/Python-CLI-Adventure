@@ -1,7 +1,11 @@
 import sqlite3
 import sys
+from rich.console import Console
+from rich.theme import Theme
 CONNECTER = sqlite3.connect('app/adventure.db')
 CURSOR = CONNECTER.cursor()
+custom_theme = Theme({"success": "green", "loot": "yellow", "failure": "red", "neutral":"blue", "character":"bold magenta"})
+console = Console(theme=custom_theme)
 
 class Character():
     def __init__(self, id=0, username="", highest_score=0, health=10, inventory=None):
@@ -43,7 +47,7 @@ class Character():
             # sql = "DELETE FROM characters"
             # CURSOR.execute(sql)
             # CONNECTER.commit()
-            print("You have been banned from the game")
+            console.print("You have been banned from the game", style="failure")
             sys.exit()   
         elif isinstance(username, str):
             self._username = username
@@ -114,3 +118,11 @@ class Character():
             self._id = CURSOR.execute("SELECT id FROM characters WHERE id=?", (self.id, )).fetchone()[0]
         except Exception as e:
             print(e)
+
+    def health(self):
+        health_lost = 10 - self.health
+        health_display = chr(0x2588) + chr(0x2502)
+        dash_display = chr(0x2591) + chr(0x2502)
+        display_health = health_display * self.health
+        dash_zero = dash_display * health_lost
+        console.print(display_health + dash_zero, style="failure")

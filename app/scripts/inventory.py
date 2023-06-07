@@ -1,6 +1,11 @@
 import sqlite3
 from scripts.character import Character
 from scripts.items import Item
+from rich.console import Console
+from rich.theme import Theme
+
+custom_theme = Theme({"success": "green", "loot": "yellow", "failure": "red", "neutral":"blue", "character":"bold magenta"})
+console = Console(theme=custom_theme)
 CONNECTER = sqlite3.connect('app/adventure.db')
 CURSOR = CONNECTER.cursor()
 
@@ -35,8 +40,8 @@ class Inventory():
         if isinstance(item, Item):
             self.items.append(item)
             self.update_new_inventory_db(item)
-            print(f"""Your spoils include {item.item_name}. 
-                  This {item.item_name} can be used to {item.item_description} and may prove useful in your next encounter.""")
+            console.print(f"""Your spoils include {item.item_name}. 
+                  This {item.item_name} can be used to {item.item_description} and may prove useful in your next encounter.""", style="loot")
         else:
             raise AttributeError("item must be of type Item")
         

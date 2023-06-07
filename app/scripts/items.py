@@ -1,7 +1,7 @@
 import sqlite3
 
-CONNECTER = sqlite3.connect('app/adventure.db')
-CURSOR = CONNECTER.cursor()
+CONNECTOR = sqlite3.connect('app/adventure.db')
+CURSOR = CONNECTOR.cursor()
 
 class Item():
     def __init__(self, id, item_name, item_description, item_type):
@@ -16,7 +16,7 @@ class Item():
     
     @id.setter
     def id(self, id):
-        if not hasattr(self, "id") and isinstance(id, int):
+        if not hasattr(self, "_id") and isinstance(id, int):
             self._id = id
         else:
             raise AttributeError("id is immutable and must be of type int")
@@ -67,8 +67,8 @@ class Item():
             print(e)
     
     @classmethod
-    def new_from_db(cls, items):
-        return Item(*items)
+    def new_from_db(cls, args):
+        return Item(*args)
     
 # items = CURSOR.execute("SELECT * FROM items").fetchall()
 # for item in items:

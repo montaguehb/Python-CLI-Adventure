@@ -30,7 +30,7 @@ class Floor():
             
     def enemy_defeat(self):
         print(f"You have defeated {self.enemy.name}") 
-        print(f"You recieved the {self.room.item} command")
+        print(f"You recieved the {self.room.item.item_name} command. This is used to {self.room.item.item_description}")
         Inventory.add_new_item(self.room.item)
         #confirm above is the correct Inventory function
         #Navigation script

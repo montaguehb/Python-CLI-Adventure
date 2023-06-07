@@ -25,7 +25,8 @@ def create_new_char():
             click.echo("User already exists")
 
 def game(character):
-    pass
+    inv = inventory.Inventory(character)
+    floor = floors.Floor(character)
 
 def old_char():
     old_char = None

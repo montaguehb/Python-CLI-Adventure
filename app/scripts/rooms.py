@@ -6,6 +6,10 @@ CONNECTOR = sqlite3.connect("app/adventure.db")
 CURSOR = CONNECTOR.cursor()
 
 class Room():
+    """_summary_
+    class method to find room by id
+    method to generate new room instance from sql query
+    """
     def __init__(self, id, item, enemy, top, bottom, left, right):
         self.id = id
         self.item = item

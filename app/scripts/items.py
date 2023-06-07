@@ -4,6 +4,10 @@ CONNECTOR = sqlite3.connect('app/adventure.db')
 CURSOR = CONNECTOR.cursor()
 
 class Item():
+    """_summary_
+    class method to find item by id
+    class method to create new item instance from SQL query
+    """
     def __init__(self, id, item_name, item_description, item_type):
         self.id = id
         self.item_name = item_name
@@ -69,7 +73,3 @@ class Item():
     @classmethod
     def new_from_db(cls, args):
         return Item(*args)
-    
-# items = CURSOR.execute("SELECT * FROM items").fetchall()
-# for item in items:
-#     Item(item.items())

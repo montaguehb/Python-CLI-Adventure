@@ -1,14 +1,13 @@
 import sqlite3
-from app.scripts.character import Character
-from app.scripts.items import Item
+from scripts.character import Character
+from scripts.items import Item
 CONNECTER = sqlite3.connect('app/adventure.db')
 CURSOR = CONNECTER.cursor()
 
 class Inventory():
-    def __init__(self, id=0, character=None, item=None):
+    def __init__(self, id=0, character=None):
         self.character_id = character.id
         self.items = []
-        self.add_new_item(item)
     
     @property
     def id(self):

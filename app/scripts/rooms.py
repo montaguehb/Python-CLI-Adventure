@@ -1,6 +1,6 @@
 import sqlite3
-from app.scripts.items import Item
-from app.scripts.enemies import Enemy 
+from scripts.items import Item
+from scripts.enemies import Enemy 
 
 CONNECTOR = sqlite3.connect("app/adventure.db")
 CURSOR = CONNECTOR.cursor()

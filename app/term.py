@@ -1,7 +1,6 @@
 import click
 import sys
 from scripts import *
-import sqlite3
 
 stdin = click.get_text_stream("stdin")
 

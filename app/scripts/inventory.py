@@ -38,5 +38,19 @@ class Inventory():
     def add_new_item(self, item):
         if isinstance(item, Item):
             self.items.append(item)
+            self.update_new_inventory_db(item)
         else:
             raise AttributeError("item must be of type Item")
+        
+    def update_new_inventory_db(self, item):
+        sql= "INSERT INTO inventory (character_id, item_id) VALUES(?, ?)"
+        CURSOR.execute(sql, (self.character.id, item.id))
+        CONNECTER.commit()
+
+
+    def pull_existing_inventory(self):
+        sql= "SELECT * from inventory"
+        inventory = CURSOR.execute(sql).fetchone()
+        self.items.append(Item.find_by_id(inventory[2]))
+
+        

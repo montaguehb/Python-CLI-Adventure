@@ -26,8 +26,7 @@ def create_new_char():
 
 def game(character):
     inv = inventory.Inventory(character)
-    floor = floors.Floor()
-    
+    floor = floors.Floor(character)
 
 def old_char():
     old_char = None

@@ -16,10 +16,11 @@ class Floor():
     update enemy of room to be defeated
     method to check if enemy has been defeated
     """
-    def __init__(self):
+    def __init__(self, character):
         self.rooms = self.get_all_rooms()
         self.current_room = self.rooms[0]
         self.defeated = []
+        self.character = character
         
     def get_all_rooms(self):
         sql = "SELECT * FROM rooms"
@@ -53,7 +54,7 @@ class Floor():
     def enemy_defeat(self):
         print(f"You have defeated {self.enemy.name}") 
         print(f"You recieved the {self.room.item.item_name} command. This is used to {self.room.item.item_description}")
-        self.add_new_item(self.room.item)
+        self.character.inventory.add_new_item(self.room.item)
         #confirm above is the correct Inventory function
         #Navigation script
     

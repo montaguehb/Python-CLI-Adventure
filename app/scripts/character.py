@@ -11,13 +11,13 @@ class Character():
     method to update health based on damage taken from enemy
     method to update database health to match self.health
     """
-    def __init__(self, id=0, username="", health=100, highest_score=0):
+    def __init__(self, id=0, username="", health=100, highest_score=0, inventory=None):
         self.id = id
         self.username = username.lower()
         self.health = health
         self.highest_score = highest_score
         self.score = 0
-    
+        
     @property
     def current_room(self):
         return self._current_room

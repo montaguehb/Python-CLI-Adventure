@@ -35,7 +35,9 @@ class Floor():
 
     def attack(self, input):
         enemy = self.current_room.enemy
-        if input in self.character.inventory and input == enemy.fight_mechanics[0]:
+        inventory= self.character.invetory
+        inventory_names = (item.item_name for item in inventory)
+        if input in inventory_names and input == enemy.fight_mechanics[0]:
             enemy.fight_mechanics.pop(0)
             print("attack success language")
             if enemy.fight_mechanics == []:

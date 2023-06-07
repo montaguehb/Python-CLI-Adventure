@@ -3,7 +3,7 @@ CONNECTER = sqlite3.connect('app/adventure.db')
 CURSOR = CONNECTER.cursor()
 
 class Character():
-    def __init__(self, id=0, username=None, health=100, highest_score=0):
+    def __init__(self, id=0, username="", health=100, highest_score=0):
         self.id = id
         self.username = username
         self.health = health
@@ -86,12 +86,14 @@ class Character():
     @classmethod
     def find_by_username(cls, username):
         sql = "SELECT * FROM characters WHERE username = ?"
-        return cls.new_from_db(*CURSOR.execute(sql, (username,)).fetchone())
+        try:
+            return cls.new_from_db(*CURSOR.execute(sql, (username,)).fetchone())
+        except TypeError:
+            return None
     
     @classmethod
     def new_from_db(cls, *args):
-        if args[0]:
-            return cls(*args)
+        return cls(*args) if args[0] else None
     
     def add_to_db(self):
         if Character.find_by_username(self.username):

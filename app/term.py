@@ -26,8 +26,9 @@ def create_new_char():
 
 def game(character):
     inv = inventory.Inventory(character)
-    floor = floors.Floor(character)
-
+    floor = floors.Floor(inventory=inv)
+    combat(inv, floor, character)
+    
 def old_char():
     old_char = None
     while not old_char:
@@ -53,7 +54,14 @@ def char_type():
 def check_exit(string):
     if string == ".exit":
         sys.exit()
-        
+
+def combat(inventory, floor, character):
+    click.echo(f"you find yourself facing {floor.current_room.enemy.enemy_name}")
+    while character.health > 0 and floor.current_room.enemy.health > 0
+
+def move():
+    pass
+      
 if __name__ == "__main__":
     main()
         

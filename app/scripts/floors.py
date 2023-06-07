@@ -37,7 +37,7 @@ class Floor():
     def attack_fail(self, attack_fail):
         with open("./app/txt/failure.txt", "r") as f:
             self._attack_fail = f.read().splitlines() 
-                               
+
     def enemy_encounter(self):
         print(f"oh look a bad guy")
         print(f"looks like they are weak agaist {self.enemy_weaknesses()}")

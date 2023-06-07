@@ -43,7 +43,7 @@ class Character():
             sql = "DELETE FROM characters"
             CURSOR.execute(sql)
             CONNECTER.commit()
-            print("You have been banned from the game")
+            print("You have been banned from the game", style="failure")
             sys.exit()   
         elif isinstance(username, str):
             self._username = username

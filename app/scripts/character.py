@@ -116,8 +116,8 @@ class Character():
     def update_id_from_db(self):
         try:
             self._id = CURSOR.execute("SELECT id FROM characters WHERE id=?", (self.id, )).fetchone()[0]
-        except Exception as e:
-            print(e)
+        except Exception:
+            return None
 
     def health(self):
         health_lost = 10 - self.health
@@ -126,3 +126,4 @@ class Character():
         display_health = health_display * self.health
         dash_zero = dash_display * health_lost
         console.print(display_health + dash_zero, style="failure")
+

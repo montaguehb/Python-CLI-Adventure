@@ -10,7 +10,7 @@ class Inventory():
     method to update db to match self.items
     """
     def __init__(self, character=None):
-        self.character_id = character.id
+        self.character = character
         self.items = []
     
     @property
@@ -25,13 +25,13 @@ class Inventory():
             raise AttributeError("id is immutable and must be of type int")
     
     @property
-    def character_id(self):
-        return self._character_id
+    def character(self):
+        return self._character
     
-    @character_id.setter
-    def character_id(self, character_id):
-        if isinstance(character_id, Character):
-            self._character_id = character_id
+    @character.setter
+    def character(self, character):
+        if isinstance(character, Character):
+            self._character = character
         else:
             raise AttributeError
     

@@ -1,6 +1,7 @@
 import click
 import sys
 from scripts import *
+import sqlite3
 
 stdin = click.get_text_stream("stdin")
 
@@ -25,7 +26,9 @@ def create_new_char():
             click.echo("User already exists")
 
 def game(character):
-    pass
+    inv = inventory.Inventory(character)
+    floor = floors.Floor()
+    
 
 def old_char():
     old_char = None

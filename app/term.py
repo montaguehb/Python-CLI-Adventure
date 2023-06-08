@@ -6,7 +6,10 @@ stdin = click.get_text_stream("stdin")
 
 def main():
     character = start()
-    click.echo(f"Welcome {character.username}")
+    click.echo(f"""{character.username}, your code is under attack! an army of nefarious beings 
+               is attempting to take over the world and they're starting with your ability to 
+               have clean version control.  Those enemies have taken all of your Git commands 
+               and scattered them throughout the Git Graveyard, but you can get them back!""")
     game(character)
     
 def start():
@@ -75,6 +78,7 @@ def combat(inventory, floor, character):
     while character.health > 0 and floor.room.enemy.fight_mechanics:
         attack = click.prompt("Attack", type=str)
         check_exit(attack)
+        show_commands(floor)
         floor.attack(attack)    
     if character.health <= 0:
         return game_over()    
@@ -94,6 +98,8 @@ def move(floor):
         if direction in directions:
             floor.update_room(floor.room.directions[direction])
             click.echo(f"You move {direction} and find yourself in insert floor directions")
+        elif direction == "git":
+            show_commands(floor)     
         else:
             click.echo("Please input a valid direction")
 
@@ -108,10 +114,10 @@ def game_over():
             return False
 
 def end():
-    pass
+    click.echo()
 
-def show_commands(command):
-    pass
+def show_commands(floor):
+    click.echo(floor.inventory.items)
 
 def read(file):
     with open(file, "r") as file:

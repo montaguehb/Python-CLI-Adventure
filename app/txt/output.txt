@@ -1,12 +1,12 @@
-#INTRODUCTION/END LANGUAGE:
+#INTRODUCTION/END LANGUAGE:item_name
     #welcome message: Color(BLUE)
     "Welcome to {GAME NAME}!" 
 
     #username prompt: Color(YELLOW)
     "Before you venture forward, what is your name my brave soul?
 
-    #game introduction Color(BLUE)
-    "{username}, your code is under attack! an army of nefarious beings is attempting to take over the world and they’re starting with your ability to have clean version control.  Those enemies have taken all of your Git commands and scattered them throughout the {game.location}, but you can get them back!"
+    #game introduction Color(BLUE)health
+    "{username}, your code is under attack! an army of nefarious beings is attempting to take over the world and they’re starting with your ability to have clean version control.  Those enemies have taken all of your Git commands and scattered them throughout the Git Graveyard, but you can get them back!"
 
     #Directions
     "We’ve heard dark rumblings from deep in the {location}. Defeat the final boss {boss_name} and save version control for the world."
@@ -17,25 +17,25 @@
     "Is this where the journey ends or are you brave enough to try again?"
 
     #Quit Color(RED)
-    "It appears your logic is no match for the treacherous beasts of the {game.location}!"
-    "We are not surprised as the {game.location} is no place for the faint of heart!"
+    "It appears your logic is no match for the treacherous beasts of the Git Graveyard!"
+    "We are not surprised as the Git Graveyard is no place for the faint of heart!"
 
     #Try-Again Color(GREEN)
-    "Ah ha! {username} it appears we have a true warrior.  Ready your logic and prepare yourself for another journey through the {game.location}
+    "Ah ha! {username} it appears we have a true warrior.  Ready your logic and prepare yourself for another journey through the Git Graveyard
     "{username}, we knew you had the heart of a winner!  Afterall, only quitters quit!"
 
 #COMMANDS:
     #navigation 
-    "You can navigate through the {game.location} with directional commands, Forward, Back, Left, and Right." 
+    "You can navigate through the Git Graveyard with directional commands, Forward, Back, Left, and Right." 
 
     #navigation prompt
     "Which way would you like to now?"
 
     #view health Color(RED)
-    "You can view your vitality with {character.health} command"
+    "You can view your vitality with {health} command"
 
     #view score Color(RED)
-    "You can view your score with {character.score} command"
+    "You can view your score with {score} command"
 
     #view inventory Color(RED)
     "You can view your inventory with {character.inventory} command"
@@ -46,7 +46,7 @@
 #First item pickup
 {item_name} has been added to your inventory.
 
-"You’ve found your first command item! This new found command will be added to your inventory and serve as an aid as you navigate through the {game.location}."
+"You’ve found your first command item! This new found command will be added to your inventory and serve as an aid as you navigate through the Git Graveyard."
 "Lookout! It’s a {enemy_name}. The enemies hate nothing more than the successful use of version control via git commands. So much so that you can see they are physically weakened by it."
 
 #FIRST BATTLE LANGUAGE:

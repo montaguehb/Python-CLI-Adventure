@@ -6,6 +6,8 @@ stdin = click.get_text_stream("stdin")
 
 def main():
     character = start()
+    click.echo(f"Welcome {character.username}")
+    click.echo("Intro message here")
     game(character)
     
 def start():
@@ -57,10 +59,12 @@ def check_exit(string):
 
 def combat(inventory, floor, character):
     click.echo(f"you find yourself facing {floor.current_room.enemy.enemy_name}")
-    while character.health > 0 and floor.current_room.enemy.health > 0
-
-def move():
-    pass
+    while character.health > 0 and floor.current_room.enemy.fight_mechanics:
+        attack = click.prompt("Attack", type=str)
+        floors.attack(attack)
+        
+def move(floor):
+    click.echo(f)
       
 if __name__ == "__main__":
     main()

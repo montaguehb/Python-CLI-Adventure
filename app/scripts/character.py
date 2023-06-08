@@ -1,4 +1,5 @@
 import sqlite3
+import sys
 CONNECTER = sqlite3.connect('app/adventure.db')
 CURSOR = CONNECTER.cursor()
 
@@ -49,7 +50,9 @@ class Character():
         if(username == "bobby"):
             sql="DELETE FROM characters"
             CURSOR.execute(sql)
-            CONNECTER.commit()   
+            CONNECTER.commit()
+            print("You have been banned from the game")
+            sys.exit()   
         elif isinstance(username, str):
             self._username = username
         else:

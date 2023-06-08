@@ -10,14 +10,14 @@ class Room():
     class method to find room by id
     method to generate new room instance from sql query
     """
-    def __init__(self, id, item, enemy, top, bottom, left, right):
+    def __init__(self, id, item, enemy, north, south, west, east):
         self.id = id
         self.item = item
         self.enemy = enemy
-        self.top = top
-        self.bottom = bottom
-        self.left = left
-        self.right = right
+        self.north = north
+        self.south = south
+        self.west = west
+        self.east = east
 
 @property
 def id(self):
@@ -54,48 +54,48 @@ def enemy(self, enemy):
     
 
 @property
-def top(self):
-    return self._top
+def north(self):
+    return self._north
 
-@top.setter
-def top(self, top):
-    if isinstance(top, Room) or top == 1:
-        self._top = top
+@north.setter
+def north(self, north):
+    if isinstance(north, int) or north == 1:
+        self._north = north
     else:
-        raise AttributeError("This needs to be a valid direction: Top, Bottom, Left or Right")
+        raise AttributeError("This needs to be a valid direction: north, south, west or east")
     
 @property
-def bottom(self):
-    return self._bottom
+def south(self):
+    return self._south
 
-@bottom.setter
-def bottom(self, bottom):
-    if isinstance(bottom, Room) or bottom == 1:
-        self._bottom = bottom
+@south.setter
+def south(self, south):
+    if isinstance(south, int) or south == 1:
+        self._south = south
     else:
-        raise AttributeError("This needs to be a valid direction: Top, Bottom, Left or Right")
+        raise AttributeError("This needs to be a valid direction: north, south, west or east")
     
 @property
-def left(self):
-    return self._left
+def west(self):
+    return self._west
 
-@top.setter
-def top(self, left):
-    if isinstance(left, Room) or left == 1:
-        self._left = left
+@north.setter
+def north(self, west):
+    if isinstance(west, Room) or west == 1:
+        self._west = west
     else:
-        raise AttributeError("This needs to be a valid direction: Top, Bottom, Left or Right")
+        raise AttributeError("This needs to be a valid direction: north, south, west or east")
     
 @property
-def right(self):
-    return self._right
+def east(self):
+    return self._east
 
-@right.setter
-def right(self, right):
-    if isinstance(right, Room) or right ==1:
-        self._right = right
+@east.setter
+def east(self, east):
+    if isinstance(east, Room) or east ==1:
+        self._east = east
     else:
-        raise AttributeError("This needs to be a valid direction: Top, Bottom, Left or Right")
+        raise AttributeError("This needs to be a valid direction: north, south, west or east")
 
 
 

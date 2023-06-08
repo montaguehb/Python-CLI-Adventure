@@ -40,10 +40,6 @@ class Floor():
     def set_room_nav(self):
         self.previous_room=self.current_room
         
-        
-        
-        
-
     #I'm not sure which of these can be fully managed by Click so I just wrote out all the logic I could think of
 
     def enter_room(self):
@@ -53,27 +49,23 @@ class Floor():
         else:
             print("you found an item")
             self.recieve_item()
-            
-            
+                        
     def enemy_first_encounter(self):
         print(f"oh look a bad guy")
         print(f"looks like they are weak agaist {self.enemy_weaknesses}")
         if len(self.enemy_weaknesses)>1:
             print("the order is important")
         
-        # This on is almost there....
     def enemy_weaknesses(self):
         fight_mechanics = self.current_room.enemy.fight_mechanics
         sql= "SELECT item_description FROM items WHERE item_name=?"
-        for mechanic in fight_mechanics:
-            CURSOR.execute(sql (mechanic,))
-            print("fix weakness method")
+        return([CURSOR.execute(sql (mechanic,))[-1] for mechanic in fight_mechanics])
     
     def enemy_attack_response(self):
         print("the enemy name is getting closer. Attack again!")
         print(f"it's weak against {self.enemy_weeknesses}")
         
-    
+
     def enemy_defeat(self):
         print(f"You have defeated {self.enemy.name}")
         self.recieve_item()

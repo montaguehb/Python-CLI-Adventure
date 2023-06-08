@@ -99,10 +99,17 @@ class Floor():
         self.character.inventory.add_new_item(self.room.item)
         
     def score_print_set(self):
-        if self.character.high_score < self.score:
-            setattr(self.character, "high_score", self.score)
+        if self.character.highest_score < self.score:
+            setattr(self.character, "highest_score", self.score)
+            sql = "UPDATE characters SET highest_score=:1, WHERE id=:2"
+            CURSOR.execute(sql, (self.character.highest_score,self.character.id))
         print(f"Your score is {self.score}")
         
+    def highest_score_print(self):
+        sql= SELECT TOP 5 highest_score FROM characters
+        
+        "SELECT username, highest_score FROM character ORDER desc LIMIT 5"
+        pass 
     
     def game_over(self): 
         print("game over language")

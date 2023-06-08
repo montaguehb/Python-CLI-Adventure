@@ -17,8 +17,8 @@ class Floor():
     method to check if enemy has been defeated
     """
     def __init__(self, inventory):
-        self.rooms = self.get_all_rooms()
-        self.current_room = self.rooms[0]
+        # self.rooms = self.get_all_rooms()
+        self.room = Room.find_room_by_id(1)
         self.defeated = []
         self.character = inventory.character
         self.inventory = inventory
@@ -35,8 +35,8 @@ class Floor():
                 for room in CURSOR.execute(sql).fetchall()]
 
     def attack(self, attack):
-        enemy = self.current_room.enemy
-        inventory_names = (item.item_name for item in self.inventory)
+        enemy = self.room.enemy
+        inventory_names = (item.item_name for item in self.inventory.items)
         if attack in inventory_names and attack == enemy.fight_mechanics[0]:
             enemy.fight_mechanics.pop(0)
             print("attack success language")
@@ -46,23 +46,24 @@ class Floor():
             self.take_damage()
                 
     def take_damage(self):
-        self.character.health -= self.enemy.level
-        sql = "UPDATE characters SET health=:1, WHERE id=:2"
+        self.character.health -= self.room.enemy.level
+        sql = "UPDATE characters SET health=:1 WHERE id=:2"
         CURSOR.execute(sql, (self.character.health,self.character.id))
         print("attack failed language")    
             
     def enemy_defeated(self):
-        print(f"You have defeated {self.enemy.name}") 
-        print(f"You recieved the {self.room.item.item_name} command. This is used to {self.room.item.item_description}")
-        self.character.add_new_item(self.room.item)
-        self.defeated.append(self.current_room.enemy)
+        print(f"You have defeated {self.room.enemy.enemy_name}")
+        if self.room.item: 
+            print(f"You recieved the {self.room.item.item_name} command. This is used to {self.room.item.item_description}")
+            self.character.add_new_item(self.room.item)
+            self.defeated.append(self.room.enemy)
     
     def game_over(self): 
         print("game over language")
         print("would you like to play again?")
     
-    def update_current_room(self, id):
-        self.current_room = Room.find_room_by_id(id)
+    def update_room(self, id):
+        self.room = Room.find_room_by_id(id)
 
     def is_enemy_defeated(self):
-        return self.current_room.enemy in self.defeated
+        return self.room.enemy in self.defeated if self.room.enemy else True

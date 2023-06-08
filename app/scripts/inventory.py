@@ -11,7 +11,7 @@ class Inventory():
     """
     def __init__(self, character=None):
         self.character = character
-        self.items = []
+        self.items = [Item.find_item_by_id(1)]
     
     @property
     def id(self):

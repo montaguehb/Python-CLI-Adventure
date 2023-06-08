@@ -29,8 +29,12 @@ def create_new_char():
 def game(character):
     inv = inventory.Inventory(character)
     floor = floors.Floor(inventory=inv)
-    combat(inv, floor, character)
-    move(floor)
+    boss = enemies.Enemy.find_enemy_by_id(1)
+    
+    while boss not in floor.defeated:
+        click.echo(floor.room.room_text())
+        combat(inv, floor, character)
+        move(floor)
     
 def old_char():
     old_char = None
@@ -61,25 +65,33 @@ def check_exit(string):
 def combat(inventory, floor, character):
     if floor.is_enemy_defeated():
         return
-    click.echo(f"you find yourself facing {floor.current_room.enemy.enemy_name}")
-    while character.health > 0 and floor.current_room.enemy.fight_mechanics:
+    click.echo(f"you find yourself facing {floor.room.enemy.enemy_name}")
+    while character.health > 0 and floor.room.enemy.fight_mechanics:
         attack = click.prompt("Attack", type=str)
         check_exit(attack)
-        floor.attack(attack)
-        
+        floor.attack(attack)    
+    if character.health < 0:
+        game_over()
+    else:
+        floor.enemy_defeated()       
+                       
 def move(floor):
-    directions = [key for key, value in floor.current_room.directions.items() if value > 0]
+    directions = [key for key, value in floor.room.directions.items() if value > 0]
     direction = ""
     click.echo(f"Which direction do you want to move {directions}")
     while direction not in directions:
         direction = click.prompt("Direction", type=str).lower()
         check_exit(direction)
         if direction in directions:
-            floor.update_current_room(floor.current_room.directions[direction])
+            floor.update_room(floor.room.directions[direction])
             click.echo(f"You move {direction} and find yourself in insert floor directions")
         else:
             click.echo("Please input a valid direction")
-      
+
+def game_over():
+    repeat = click.prompt("play again?", type=str)
+    check_exit(repeat)
+             
 if __name__ == "__main__":
     main()
         

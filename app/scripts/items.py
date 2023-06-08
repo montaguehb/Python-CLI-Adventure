@@ -65,6 +65,8 @@ class Item():
         try:
             if isinstance(id, int):
                 return cls.new_from_db(CURSOR.execute(sql, (id, )).fetchone())
+            elif id == "Null":
+                return None
             else:
                 raise ValueError
         except Exception as e:

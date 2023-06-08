@@ -12,8 +12,8 @@ class Room():
     """
     def __init__(self, id, item, enemy, north, south, west, east):
         self.id = id
-        self.item = item
-        self.enemy = enemy
+        self.item = Item.find_item_by_id(item)
+        self.enemy = Enemy.find_enemy_by_id(enemy)
         self.directions = {"north": north,
                            "south": south,
                            "west": west,
@@ -35,7 +35,7 @@ class Room():
 
     @item.setter
     def item(self, item):
-        if isinstance(item, Item):
+        if isinstance(item, Item) or item is None:
             self._item = item
         else:
             raise AttributeError("item is immutable and must be of type item")
@@ -46,10 +46,10 @@ class Room():
 
     @enemy.setter
     def enemy(self, enemy):
-        if isinstance(enemy, Enemy):
+        if isinstance(enemy, Enemy) or enemy is None:
             self._enemy = enemy
         else:
-            raise AttributeError("enemy is immutable and must be of type int")        
+            raise AttributeError("enemy is immutable and must be of type enemy")        
 
     @property
     def directions(self):
@@ -63,18 +63,6 @@ class Room():
                 self._directions[key] = value
             else:
                 raise AttributeError("This needs to be a valid direction: north, south, west or east")
-        
-    @property
-    def south(self):
-        return self._south
-
-    @south.setter
-    def south(self, south):
-        if isinstance(south, int) or south == 1:
-            self._south = south
-        else:
-            raise AttributeError("This needs to be a valid direction: north, south, west or east")
-
 
     @classmethod
     def find_room_by_id(cls, id):
@@ -82,11 +70,14 @@ class Room():
         try:
             if isinstance(id, int):
                 return cls.new_room(CURSOR.execute(sql, (id, )).fetchone())
+            else:
+                raise AttributeError("id is immutable and must be of type int")
         except Exception as e:
             print(e)
-        else:
-            raise AttributeError("id is immutable and must be of type int")
-
+    
+    def room_text(self):
+        return "room text"
+            
     @classmethod
     def new_room(cls, rooms):
         return Room(*rooms)

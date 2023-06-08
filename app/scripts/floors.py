@@ -17,22 +17,10 @@ class Floor():
     method to check if enemy has been defeated
     """
     def __init__(self, inventory):
-        # self.rooms = self.get_all_rooms()
         self.room = Room.find_room_by_id(1)
         self.defeated = []
         self.character = inventory.character
         self.inventory = inventory
-        
-    def get_all_rooms(self):
-        sql = "SELECT * FROM rooms"
-        return [Room(room[0],
-                     Item.find_item_by_id(1), 
-                     Enemy.find_enemy_by_id(1),
-                     room[3],
-                     room[4],
-                     room[5],
-                     room[6]) 
-                for room in CURSOR.execute(sql).fetchall()]
 
     def attack(self, attack):
         enemy = self.room.enemy
@@ -40,7 +28,7 @@ class Floor():
         if attack in inventory_names and attack == enemy.fight_mechanics[0]:
             enemy.fight_mechanics.pop(0)
             print("attack success language")
-            if enemy.fight_mechanics == []:
+            if not enemy.fight_mechanics:
                 self.enemy_defeated()
         else:
             self.take_damage()
@@ -54,8 +42,7 @@ class Floor():
     def enemy_defeated(self):
         print(f"You have defeated {self.room.enemy.enemy_name}")
         if self.room.item: 
-            print(f"You recieved the {self.room.item.item_name} command. This is used to {self.room.item.item_description}")
-            self.character.add_new_item(self.room.item)
+            self.inventory.add_new_item(self.room.item)
             self.defeated.append(self.room.enemy)
     
     def game_over(self): 

@@ -11,7 +11,7 @@ class Inventory():
     """
     def __init__(self, character=None):
         self.character = character
-        self.items = [Item.find_item_by_id(1)]
+        self.items = []
     
     @property
     def id(self):
@@ -39,6 +39,7 @@ class Inventory():
         if isinstance(item, Item):
             self.items.append(item)
             self.update_new_inventory_db(item)
+            print(f"You recieved the {item.item_name} command. This is used to {item.item_description}")
         else:
             raise AttributeError("item must be of type Item")
         

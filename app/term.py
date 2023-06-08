@@ -34,6 +34,8 @@ def game(character):
     while boss not in floor.defeated:
         click.echo(floor.room.room_text())
         combat(inv, floor, character)
+        if not floor.room.enemy and floor.room.item:
+            floor.inventory.add_new_item(floor.room.item)
         move(floor)
     
 def old_char():
@@ -71,9 +73,7 @@ def combat(inventory, floor, character):
         check_exit(attack)
         floor.attack(attack)    
     if character.health < 0:
-        game_over()
-    else:
-        floor.enemy_defeated()       
+        game_over()    
                        
 def move(floor):
     directions = [key for key, value in floor.room.directions.items() if value > 0]
@@ -91,6 +91,9 @@ def move(floor):
 def game_over():
     repeat = click.prompt("play again?", type=str)
     check_exit(repeat)
+
+def show_commands(command):
+    pass
              
 if __name__ == "__main__":
     main()

@@ -39,6 +39,7 @@ class Inventory():
         if isinstance(item, Item):
             self.items.append(item)
             self.update_new_inventory_db(item)
+            print(f"You recieved the {item.item_name} command. {item.item_description}")
         else:
             raise AttributeError("item must be of type Item")
         

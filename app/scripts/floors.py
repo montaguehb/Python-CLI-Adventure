@@ -33,6 +33,40 @@ class Floor():
                      room[6]) 
                 for room in CURSOR.execute(sql).fetchall()]
 
+    #I'm not sure which of these can be fully managed by Click so I just wrote out all the logic I could think of
+
+    def enter_room(self):
+        print("randomized room description")
+        if self.current_room.enemy:
+            self.enemy_first_encounter()       
+        else:
+            print("you found an item")
+            self.recieve_item()
+            
+            
+    def enemy_first_encounter(self):
+        print(f"oh look a bad guy")
+        print(f"looks like they are weak agaist {self.enemy_weaknesses}")
+        if len(self.enemy_weaknesses)>1:
+            print("the order is important")
+        
+        # This on is almost there....
+    def enemy_weaknesses(self):
+        fight_mechanics = self.current_room.enemy.fight_mechanics
+        sql= "SELECT item_description FROM items WHERE item_name=?"
+        for mechanic in fight_mechanics:
+            CURSOR.execute(sql (mechanic,))
+            print()
+    
+    def enemy_attack_response(self):
+        print("the enemy name is getting closer. Attack again!")
+        print(f"it's weak against {self.enemy_weeknesses}")
+        
+    
+    def enemy_defeat(self):
+        print(f"You have defeated {self.enemy.name}")
+        self.recieve_item()
+    
     def attack(self, input):
         enemy = self.current_room.enemy
         inventory= self.character.invetory
@@ -51,14 +85,13 @@ class Floor():
         CURSOR.execute(sql, (self.character.health,self.character.id))
         print("attack failed language")
         if self.character.health <= 0:
-            self.game_over()        
-            
-    def enemy_defeat(self):
-        print(f"You have defeated {self.enemy.name}") 
+            self.game_over()
+        elif self.character.health <=3:
+            print("low health statement")      
+    
+    def recieve_item(self):
         print(f"You recieved the {self.room.item.item_name} command. This is used to {self.room.item.item_description}")
         self.character.inventory.add_new_item(self.room.item)
-        #confirm above is the correct Inventory function
-        #Navigation script
     
     def game_over(self): 
         print("game over language")

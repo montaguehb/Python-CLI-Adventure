@@ -29,7 +29,6 @@ class Floor():
             print("the order is important")
         
     def enemy_weaknesses(self):
-        fight_mechanics = self.room.enemy.fight_mechanics
         sql= "SELECT item_description FROM items WHERE item_name=?"
         return([CURSOR.execute(sql, (mechanic,)).fetchone()[-1] for mechanic in self.room.enemy.fight_mechanics])
     
@@ -39,8 +38,7 @@ class Floor():
     
     def attack(self, input):
         enemy = self.room.enemy
-        inventory= self.character.invetory
-        inventory_names = (item.item_name for item in inventory)
+        inventory_names = (item.item_name for item in self.inventory)
         if input in inventory_names and input == enemy.fight_mechanics[0]:
             enemy.fight_mechanics.pop(0)
             print("attack success language")

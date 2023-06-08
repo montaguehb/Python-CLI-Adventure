@@ -32,7 +32,7 @@ def game(character):
     boss = enemies.Enemy.find_enemy_by_id(1)
     
     while boss not in floor.defeated:
-        click.echo(floor.room.room_text())
+        click.echo(f"{floor.room.room_text()}")
         combat(inv, floor, character)
         if not floor.room.enemy and floor.room.item:
             floor.inventory.add_new_item(floor.room.item)
@@ -78,15 +78,20 @@ def combat(inventory, floor, character):
 def move(floor):
     directions = [key for key, value in floor.room.directions.items() if value > 0]
     direction = ""
-    click.echo(f"Which direction do you want to move {directions}")
-    while direction not in directions:
-        direction = click.prompt("Direction", type=str).lower()
-        check_exit(direction)
-        if direction in directions:
-            floor.update_room(floor.room.directions[direction])
-            click.echo(f"You move {direction} and find yourself in insert floor directions")
-        else:
-            click.echo("Please input a valid direction")
+    room = click.prompt("room [yn]", type=str)
+    if room == "y":
+        room_id = click.prompt("room_id", type=int)
+        floor.update_room(room_id)  
+    else:
+        click.echo(f"Which direction do you want to move {directions}")
+        while direction not in directions:
+            direction = click.prompt("Direction", type=str).lower()
+            check_exit(direction)
+            if direction in directions:
+                floor.update_room(floor.room.directions[direction])
+                click.echo(f"You move {direction} and find yourself in insert floor directions")
+            else:
+                click.echo("Please input a valid direction")
 
 def game_over():
     repeat = click.prompt("play again?", type=str)
@@ -94,7 +99,7 @@ def game_over():
 
 def show_commands(command):
     pass
-             
+               
 if __name__ == "__main__":
     main()
         

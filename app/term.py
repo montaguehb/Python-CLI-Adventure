@@ -30,6 +30,7 @@ def game(character):
     inv = inventory.Inventory(character)
     floor = floors.Floor(inventory=inv)
     combat(inv, floor, character)
+    move(floor)
     
 def old_char():
     old_char = None
@@ -58,13 +59,26 @@ def check_exit(string):
         sys.exit()
 
 def combat(inventory, floor, character):
+    if floor.is_enemy_defeated():
+        return
     click.echo(f"you find yourself facing {floor.current_room.enemy.enemy_name}")
     while character.health > 0 and floor.current_room.enemy.fight_mechanics:
         attack = click.prompt("Attack", type=str)
-        floors.attack(attack)
+        check_exit(attack)
+        floor.attack(attack)
         
 def move(floor):
-    click.echo(f)
+    directions = [key for key, value in floor.current_room.directions.items() if value > 0]
+    direction = ""
+    click.echo(f"Which direction do you want to move {directions}")
+    while direction not in directions:
+        direction = click.prompt("Direction", type=str).lower()
+        check_exit(direction)
+        if direction in directions:
+            floor.update_current_room(floor.current_room.directions[direction])
+            click.echo(f"You move {direction} and find yourself in insert floor directions")
+        else:
+            click.echo("Please input a valid direction")
       
 if __name__ == "__main__":
     main()

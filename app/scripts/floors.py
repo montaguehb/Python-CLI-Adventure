@@ -34,13 +34,14 @@ class Floor():
                      room[6]) 
                 for room in CURSOR.execute(sql).fetchall()]
 
-    def attack(self, input):
+    def attack(self, attack):
         enemy = self.current_room.enemy
-        if input in self.character.inventory and input == enemy.fight_mechanics[0]:
+        inventory_names = (item.item_name for item in self.inventory)
+        if attack in inventory_names and attack == enemy.fight_mechanics[0]:
             enemy.fight_mechanics.pop(0)
             print("attack success language")
             if enemy.fight_mechanics == []:
-                self.enemy_defeat()
+                self.enemy_defeated()
         else:
             self.take_damage()
                 
@@ -48,17 +49,20 @@ class Floor():
         self.character.health -= self.enemy.level
         sql = "UPDATE characters SET health=:1, WHERE id=:2"
         CURSOR.execute(sql, (self.character.health,self.character.id))
-        print("attack failed language")
-        if self.character.health <= 0:
-            self.game_over()        
+        print("attack failed language")    
             
-    def enemy_defeat(self):
+    def enemy_defeated(self):
         print(f"You have defeated {self.enemy.name}") 
         print(f"You recieved the {self.room.item.item_name} command. This is used to {self.room.item.item_description}")
         self.character.add_new_item(self.room.item)
+        self.defeated.append(self.current_room.enemy)
     
     def game_over(self): 
         print("game over language")
         print("would you like to play again?")
-        if input == "play_again":
-            self.play_again()
+    
+    def update_current_room(self, id):
+        self.current_room = Room.find_room_by_id(id)
+
+    def is_enemy_defeated(self):
+        return self.current_room.enemy in self.defeated

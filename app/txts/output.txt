@@ -1,0 +1,115 @@
+#INTRODUCTION/END LANGUAGE:
+    #welcome message: Color(BLUE)
+    "Welcome to {GAME NAME}!" 
+
+    #username prompt: Color(YELLOW)
+    "Before you venture forward, what is your name my brave soul?
+
+    #game introduction Color(BLUE)
+    "{character.name}, your code is under attack! an army of nefarious beings is attempting to take over the world and they’re starting with your ability to have clean version control.  Those enemies have taken all of your Git commands and scattered them throughout the {game.location}, but you can get them back!"
+
+    #Directions
+    "We’ve heard dark rumblings from deep in the {location}. Defeat the final boss {enemy.name[1]} and save version control for the world."
+
+
+    #Game Over Language - Color(RED)
+    "Unfortunately, the power of the {enemy.name} proved to be too much and has taken your remaining life. -GAME OVER-"
+    "Is this where the journey ends or are you brave enough to try again?"
+
+    #Quit Color(RED)
+    "It appears your logic is no match for the treacherous beasts of the {game.location}!"
+    "We are not surprised as the {game.location} is no place for the faint of heart!"
+
+    #Try-Again Color(GREEN)
+    "Ah ha! {username} it appears we have a true warrior.  Ready your logic and prepare yourself for another journey through the {game.location}
+    "{username}, we knew you had the heart of a winner!  Afterall, only quitters quit!"
+
+#COMMANDS:
+    #navigation 
+    "You can navigate through the {game.location} with directional commands, Forward, Back, Left, and Right." 
+
+    #navigation prompt
+    "Which way would you like to now?"
+
+    #view health Color(RED)
+    "You can view your vitality with {character.health} command"
+
+    #view score Color(RED)
+    "You can view your score with {character.score} command"
+
+    #view inventory Color(RED)
+    "You can view your inventory with {character.inventory} command"
+    "You look into your inventory of logic and discover the following items {item.name}
+
+
+#Inventory Language:
+#First item pickup
+{item.name} has been added to your inventory.
+
+"You’ve found your first command item! This new found command will be added to your inventory and serve as an aid as you navigate through the {game.location}."
+"Lookout! It’s a {enemy.name}. The enemies hate nothing more than the successful use of version control via git commands. So much so that you can see they are physically weakened by it."
+
+#FIRST BATTLE LANGUAGE:
+#First enemy encounter
+"You've encountered a ferocious {enemy.name}. Feat not, this one looks like it would be weak against {item.description} ?.
+
+#Inventory Tip
+"Try using the item in your inventory that matches that description."
+
+#First battle success
+"Great job {character.name}, beating your first enemy.  Unfortunately, there is no time for celebration as your adventure has only just begun. Make your way through the {location}, battling enemies with your git prowess, but beware, use the wrong command and the enemy will attack. Taking too much damage is the end of the road for you."
+
+
+#Navigation
+    #Previously visited Room
+    "It appears you may have lost your way and stumbled into a previously visited room."
+    "The battle must be wearing on your mind for you realize this is a room you've already visited."
+  
+
+    #New Monster encounter
+    "Vile wretches can be heard and a {enemy.name} suddenly appears.  Hopefully you are prepared for battle!"
+    "You enter a damn dark room with a foul odor coming from an opening in the ground.  As you near this crater, the source of the stench becomes clear as a {enemy.name} emerges"
+    "Upon entry, the floor begins to rumble.  A seam in the floor suddenly bursts open and an angry aggressive {enemy.name} appears!"
+
+    #Door Locked
+    "The door is locked! You pull, tug and pry but all attempts fail. It appears you must find another way out!"
+    "You reach for the door but can hear the sound of the deadbolt on the other side.  It becomes clear this door will not budge!"  
+    "Upon approaching the door, you quickly realize magic has sealed it from the other side.  You must find another exit!"
+    "It appears someone has tampered with the lock and attempts to open fail.  There’s no way through this door!"
+
+    #CreatureLess Room with Item
+    "You enter a dark dingy room and there appears to be no sign of danger.  In the corner you notice an old dusty crate.  You wipe off the dust and pry open the lid.  To your surprise you find a {item.name}"
+    "You enter a silent room.  You see a cobweb filled bookcase in the corner.  Upon inspection, you notice a pouch hidden behind one of the books and are excited to find a {item.name} inside.
+    
+
+    
+#Low Health Alert
+"{Player.name}, your health has diminished quickly.  Tread carefully for the next encounter may prove to be your last!"
+
+
+#BATTLE MECHANICS LANGUAGE:
+#Attack Success Language
+    "You hear the screams of {enemy.name} as your logic pierces their defenses!"
+    "Your {item.name}s logic whirls towards the {enemy.name} and lands a direct hit. The enemy has been weakened!"
+    "With a quick swipe of your {item.name} you hear the {enemy.name} cry in pain as your logic succeeds! "
+    "The {enemy.name} shrieks in agony as your {item.name} rips through their rotten flesh"
+    "Your {item.name} overwhelms the {enemy.name} and rips off a limb.  Logical attack succeeds!"
+    "You whirl your {item.name} towards the {enemy.name} and their defenses prove worthless against your sound logic.  The enemy weakens!"
+
+#Attack Failure
+    "Despite your best efforts, the {command} is futile and the {enemy.name} launches a counterattack and you take {enemy.lvl} damage."
+    "You launch your attack and are dismayed to find the {item.name} appears to have no effect on the {enemy.name}.  A quick swipe from their viscous claw pierces your armor and you take {enemy.lvl} damage."
+    "Your logic soars through the air but is deflected by the {enemy.name}s defenses.  While your guard is down the {enemy.name} counterattacks and you suffer {enemy.level} damage"
+    "You throw your {item.name} at the {enemy.name} but the {enemy.name}s reflexes are too fast.  They catch the {item.name} and use it to slash through your armor.  You take {enemy.lvl} damage."
+
+#Defeat an Enemy
+     "Your power of version control is too much for {enemy.name} you watch victoriously as the {enemy.name} disintegrates before your eyes."
+     "Your sound logic overtakes the {enemy.name}.  You hear screams from the {enemy.name} as they retreat into the abyss."
+
+ Acquire Item/Command
+    "Your spoils include {item.name}. This {item.name} can be used to {command} and may prove useful in your next encounter."
+
+
+Install 
+pipenv install
+pipenv lock

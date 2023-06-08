@@ -108,8 +108,3 @@
 
  Acquire Item/Command
     "Your spoils include {item.name}. This {item.name} can be used to {command} and may prove useful in your next encounter."
-
-
-Install 
-pipenv install
-pipenv lock

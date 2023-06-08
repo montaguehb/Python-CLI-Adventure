@@ -6,14 +6,14 @@
     "Before you venture forward, what is your name my brave soul?
 
     #game introduction Color(BLUE)
-    "{character.name}, your code is under attack! an army of nefarious beings is attempting to take over the world and they’re starting with your ability to have clean version control.  Those enemies have taken all of your Git commands and scattered them throughout the {game.location}, but you can get them back!"
+    "{username}, your code is under attack! an army of nefarious beings is attempting to take over the world and they’re starting with your ability to have clean version control.  Those enemies have taken all of your Git commands and scattered them throughout the {game.location}, but you can get them back!"
 
     #Directions
-    "We’ve heard dark rumblings from deep in the {location}. Defeat the final boss {enemy.name[1]} and save version control for the world."
+    "We’ve heard dark rumblings from deep in the {location}. Defeat the final boss {enemy_name[1]} and save version control for the world."
 
 
     #Game Over Language - Color(RED)
-    "Unfortunately, the power of the {enemy.name} proved to be too much and has taken your remaining life. -GAME OVER-"
+    "Unfortunately, the power of the {enemy_name} proved to be too much and has taken your remaining life. -GAME OVER-"
     "Is this where the journey ends or are you brave enough to try again?"
 
     #Quit Color(RED)
@@ -39,25 +39,25 @@
 
     #view inventory Color(RED)
     "You can view your inventory with {character.inventory} command"
-    "You look into your inventory of logic and discover the following items {item.name}
+    "You look into your inventory of logic and discover the following items {item_name}
 
 
 #Inventory Language:
 #First item pickup
-{item.name} has been added to your inventory.
+{item_name} has been added to your inventory.
 
 "You’ve found your first command item! This new found command will be added to your inventory and serve as an aid as you navigate through the {game.location}."
-"Lookout! It’s a {enemy.name}. The enemies hate nothing more than the successful use of version control via git commands. So much so that you can see they are physically weakened by it."
+"Lookout! It’s a {enemy_name}. The enemies hate nothing more than the successful use of version control via git commands. So much so that you can see they are physically weakened by it."
 
 #FIRST BATTLE LANGUAGE:
 #First enemy encounter
-"You've encountered a ferocious {enemy.name}. Feat not, this one looks like it would be weak against {item.description} ?.
+"You've encountered a ferocious {enemy_name}. Feat not, this one looks like it would be weak against {item.description} ?.
 
 #Inventory Tip
 "Try using the item in your inventory that matches that description."
 
 #First battle success
-"Great job {character.name}, beating your first enemy.  Unfortunately, there is no time for celebration as your adventure has only just begun. Make your way through the {location}, battling enemies with your git prowess, but beware, use the wrong command and the enemy will attack. Taking too much damage is the end of the road for you."
+"Great job {username}, beating your first enemy.  Unfortunately, there is no time for celebration as your adventure has only just begun. Make your way through the {location}, battling enemies with your git prowess, but beware, use the wrong command and the enemy will attack. Taking too much damage is the end of the road for you."
 
 
 #Navigation
@@ -67,9 +67,9 @@
   
 
     #New Monster encounter
-    "Vile wretches can be heard and a {enemy.name} suddenly appears.  Hopefully you are prepared for battle!"
-    "You enter a damn dark room with a foul odor coming from an opening in the ground.  As you near this crater, the source of the stench becomes clear as a {enemy.name} emerges"
-    "Upon entry, the floor begins to rumble.  A seam in the floor suddenly bursts open and an angry aggressive {enemy.name} appears!"
+    "Vile wretches can be heard and a {enemy_name} suddenly appears.  Hopefully you are prepared for battle!"
+    "You enter a damn dark room with a foul odor coming from an opening in the ground.  As you near this crater, the source of the stench becomes clear as a {enemy_name} emerges"
+    "Upon entry, the floor begins to rumble.  A seam in the floor suddenly bursts open and an angry aggressive {enemy_name} appears!"
 
     #Door Locked
     "The door is locked! You pull, tug and pry but all attempts fail. It appears you must find another way out!"
@@ -78,8 +78,8 @@
     "It appears someone has tampered with the lock and attempts to open fail.  There’s no way through this door!"
 
     #CreatureLess Room with Item
-    "You enter a dark dingy room and there appears to be no sign of danger.  In the corner you notice an old dusty crate.  You wipe off the dust and pry open the lid.  To your surprise you find a {item.name}"
-    "You enter a silent room.  You see a cobweb filled bookcase in the corner.  Upon inspection, you notice a pouch hidden behind one of the books and are excited to find a {item.name} inside.
+    "You enter a dark dingy room and there appears to be no sign of danger.  In the corner you notice an old dusty crate.  You wipe off the dust and pry open the lid.  To your surprise you find a {item_name}"
+    "You enter a silent room.  You see a cobweb filled bookcase in the corner.  Upon inspection, you notice a pouch hidden behind one of the books and are excited to find a {item_name} inside.
     
 
     
@@ -89,22 +89,22 @@
 
 #BATTLE MECHANICS LANGUAGE:
 #Attack Success Language
-    "You hear the screams of {enemy.name} as your logic pierces their defenses!"
-    "Your {item.name}s logic whirls towards the {enemy.name} and lands a direct hit. The enemy has been weakened!"
-    "With a quick swipe of your {item.name} you hear the {enemy.name} cry in pain as your logic succeeds! "
-    "The {enemy.name} shrieks in agony as your {item.name} rips through their rotten flesh"
-    "Your {item.name} overwhelms the {enemy.name} and rips off a limb.  Logical attack succeeds!"
-    "You whirl your {item.name} towards the {enemy.name} and their defenses prove worthless against your sound logic.  The enemy weakens!"
+    "You hear the screams of {enemy_name} as your logic pierces their defenses!"
+    "Your {item_name}s logic whirls towards the {enemy_name} and lands a direct hit. The enemy has been weakened!"
+    "With a quick swipe of your {item_name} you hear the {enemy_name} cry in pain as your logic succeeds! "
+    "The {enemy_name} shrieks in agony as your {item_name} rips through their rotten flesh"
+    "Your {item_name} overwhelms the {enemy_name} and rips off a limb.  Logical attack succeeds!"
+    "You whirl your {item_name} towards the {enemy_name} and their defenses prove worthless against your sound logic.  The enemy weakens!"
 
 #Attack Failure
-    "Despite your best efforts, the {command} is futile and the {enemy.name} launches a counterattack and you take {enemy.lvl} damage."
-    "You launch your attack and are dismayed to find the {item.name} appears to have no effect on the {enemy.name}.  A quick swipe from their viscous claw pierces your armor and you take {enemy.lvl} damage."
-    "Your logic soars through the air but is deflected by the {enemy.name}s defenses.  While your guard is down the {enemy.name} counterattacks and you suffer {enemy.level} damage"
-    "You throw your {item.name} at the {enemy.name} but the {enemy.name}s reflexes are too fast.  They catch the {item.name} and use it to slash through your armor.  You take {enemy.lvl} damage."
+    "Despite your best efforts, the {command} is futile and the {enemy_name} launches a counterattack and you take {enemy.lvl} damage."
+    "You launch your attack and are dismayed to find the {item_name} appears to have no effect on the {enemy_name}.  A quick swipe from their viscous claw pierces your armor and you take {enemy.lvl} damage."
+    "Your logic soars through the air but is deflected by the {enemy_name}s defenses.  While your guard is down the {enemy_name} counterattacks and you suffer {enemy.level} damage"
+    "You throw your {item_name} at the {enemy_name} but the {enemy_name}s reflexes are too fast.  They catch the {item_name} and use it to slash through your armor.  You take {enemy.lvl} damage."
 
 #Defeat an Enemy
-     "Your power of version control is too much for {enemy.name} you watch victoriously as the {enemy.name} disintegrates before your eyes."
-     "Your sound logic overtakes the {enemy.name}.  You hear screams from the {enemy.name} as they retreat into the abyss."
+     "Your power of version control is too much for {enemy_name} you watch victoriously as the {enemy_name} disintegrates before your eyes."
+     "Your sound logic overtakes the {enemy_name}.  You hear screams from the {enemy_name} as they retreat into the abyss."
 
  Acquire Item/Command
-    "Your spoils include {item.name}. This {item.name} can be used to {command} and may prove useful in your next encounter."
+    "Your spoils include {item_name}. This {item_name} can be used to {command} and may prove useful in your next encounter."

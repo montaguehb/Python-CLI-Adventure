@@ -29,7 +29,7 @@ def game(character):
     inv = inventory.Inventory(character)
     floor = floors.Floor(inventory=inv)
     boss = enemies.Enemy.find_enemy_by_id(1)
-    while boss not in floor.defeated:
+    while boss.enemy_name not in (enemy.enemy_name for enemy in floor.defeated):
         click.echo(f"{floor.room.room_text()}")
         combat(inv, floor, character)
         if not floor.room.enemy and floor.room.item:

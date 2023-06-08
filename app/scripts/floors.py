@@ -21,6 +21,9 @@ class Floor():
         self.current_room = self.rooms[0]
         self.defeated = []
         self.character = character
+        self.score = 0
+        self.enemy = self.current_room.enemy
+
         
     def get_all_rooms(self):
         sql = "SELECT * FROM rooms"
@@ -32,7 +35,43 @@ class Floor():
                      room[5],
                      room[6]) 
                 for room in CURSOR.execute(sql).fetchall()]
+        
+        #just getting started on this but relative navigation is pretty tricky
+    def set_room_nav(self):
+        self.previous_room=self.current_room
+        
+    #I'm not sure which of these can be fully managed by Click so I just wrote out all the logic I could think of
 
+    def enter_room(self):
+        print("randomized room description")
+        if self.current_room.enemy:
+            self.enemy_first_encounter()       
+        else:
+            print("you found an item")
+            self.recieve_item()
+                        
+    def enemy_first_encounter(self):
+        print(f"oh look a bad guy")
+        print(f"looks like they are weak agaist {self.enemy_weaknesses}")
+        if len(self.enemy_weaknesses)>1:
+            print("the order is important")
+        
+    def enemy_weaknesses(self):
+        fight_mechanics = self.current_room.enemy.fight_mechanics
+        sql= "SELECT item_description FROM items WHERE item_name=?"
+        return([CURSOR.execute(sql (mechanic,))[-1] for mechanic in fight_mechanics])
+    
+    def enemy_attack_response(self):
+        print("the enemy name is getting closer. Attack again!")
+        print(f"it's weak against {self.enemy_weeknesses}")
+        
+
+    def enemy_defeat(self):
+        print(f"You have defeated {self.enemy.name}")
+        self.recieve_item()
+        points = self.enemy.level*100
+        self.score += points
+    
     def attack(self, input):
         enemy = self.current_room.enemy
         inventory= self.character.invetory
@@ -51,17 +90,23 @@ class Floor():
         CURSOR.execute(sql, (self.character.health,self.character.id))
         print("attack failed language")
         if self.character.health <= 0:
-            self.game_over()        
-            
-    def enemy_defeat(self):
-        print(f"You have defeated {self.enemy.name}") 
+            self.game_over()
+        elif self.character.health <=3:
+            print("low health statement")      
+    
+    def recieve_item(self):
         print(f"You recieved the {self.room.item.item_name} command. This is used to {self.room.item.item_description}")
         self.character.inventory.add_new_item(self.room.item)
-        #confirm above is the correct Inventory function
-        #Navigation script
+        
+    def score_print_set(self):
+        if self.character.high_score < self.score:
+            setattr(self.character, "high_score", self.score)
+        print(f"Your score is {self.score}")
+        
     
     def game_over(self): 
         print("game over language")
+        self.score_print()     
         print("would you like to play again?")
         if input == "play_again":
             self.play_again()

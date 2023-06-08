@@ -48,7 +48,6 @@ class Inventory():
         CURSOR.execute(sql, (self.character.id, item.id))
         CONNECTER.commit()
 
-
     def pull_existing_inventory(self):
         sql= "SELECT * from inventory"
         inventory = CURSOR.execute(sql).fetchone()

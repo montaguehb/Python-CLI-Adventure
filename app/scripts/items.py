@@ -4,10 +4,6 @@ CONNECTOR = sqlite3.connect('app/adventure.db')
 CURSOR = CONNECTOR.cursor()
 
 class Item():
-    """_summary_
-    class method to find item by id
-    class method to create new item instance from SQL query
-    """
     def __init__(self, id, item_name, item_description, item_type):
         self.id = id
         self.item_name = item_name
@@ -38,7 +34,7 @@ class Item():
         
     @property
     def item_description(self):
-        return self._item_name
+        return self._item_description
     
     @item_description.setter
     def item_description(self, item_description):
@@ -46,7 +42,6 @@ class Item():
             self._item_description = item_description
         else:
             raise AttributeError("Item_description must be of type str")
-    
         
     @property
     def item_type(self):

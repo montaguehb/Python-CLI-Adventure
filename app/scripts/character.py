@@ -12,7 +12,7 @@ class Character():
     method to update health based on damage taken from enemy
     method to update database health to match self.health
     """
-    def __init__(self, id=0, username="", health=100, highest_score=0, inventory=None):
+    def __init__(self, id=0, username="", highest_score=0, health=10, inventory=None):
         self.id = id
         self.username = username.lower()
         self.health = health
@@ -98,7 +98,7 @@ class Character():
     
     @classmethod
     def find_by_username(cls, username):
-        sql = "SELECT * FROM characters WHERE username = ?"
+        sql = "SELECT * FROM characters WHERE username=?"
         try:
             return cls.new_from_db(*CURSOR.execute(sql, (username,)).fetchone())
         except TypeError:
@@ -119,6 +119,6 @@ class Character():
             
     def update_id_from_db(self):
         try:
-            self._id = CURSOR.execute("SELECT id FROM characters WHERE username=?", (self.username, )).fetchone()[0]
+            self._id = CURSOR.execute("SELECT id FROM characters WHERE id=?", (self.id, )).fetchone()[0]
         except Exception as e:
             print(e)

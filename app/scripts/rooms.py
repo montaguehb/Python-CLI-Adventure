@@ -8,7 +8,7 @@ CURSOR = CONNECTOR.cursor()
 
 
 class Room:
-    def __init__(self, id, item, enemy, north, south, west, east):
+    def __init__(self, id, item, enemy=None, north=None, south=None, west=None, east=None):
         self.id = id
         self.item = Item.find_item_by_id(item)
         self.enemy = Enemy.find_enemy_by_id(enemy)
@@ -77,7 +77,7 @@ class Room:
         if not self.enemy and self.id not in [1, 4]:
             with open("./app/txt/creature_less_room.txt", "r") as f:
                 return random.choice(f.read().splitlines())
-        if self.id in [1, 2, 3, 4]:
+        elif self.id in [1, 2, 3]:
             with open("app/txt/Room_1_4.txt", "r") as f:
                 return (
                     f.read()
@@ -85,6 +85,12 @@ class Room:
                     .format(
                         enemy_name=self.enemy.enemy_name
                     )
+                )
+        elif self.id == 4:
+            with open("app/txt/Room_1_4.txt", "r") as f:
+                return (
+                    f.read()
+                    .splitlines()[self.id - 1]
                 )
         return ""
 

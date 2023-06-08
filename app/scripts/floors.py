@@ -28,7 +28,16 @@ class Floor():
             self._attack_success = f.read().splitlines()
         # sql = "SELECT * FROM text WHERE used=?"
         # self._attack_success = [text[1] for text in CURSOR.execute(sql, ("success", )).fetchall()]
-                        
+        
+    @property
+    def attack_fail(self):
+        return self._attack_fail
+    
+    @attack_fail.setter
+    def attack_fail(self, attack_fail):
+        with open("./app/txt/failure.txt", "r") as f:
+            self._attack_fail = f.read().splitlines() 
+                               
     def enemy_encounter(self):
         print(f"oh look a bad guy")
         print(f"looks like they are weak agaist {self.enemy_weaknesses()}")
@@ -54,15 +63,20 @@ class Floor():
             if not enemy.fight_mechanics:
                 self.enemy_defeated()
         else:
-            self.take_damage()
+            self.take_damage(attack)
                 
-    def take_damage(self):
+    def take_damage(self, attack):
         self.character.health -= self.room.enemy.level
         if self.character.health <=3:
             print("low health statement")
         sql = "UPDATE characters SET health=:1 WHERE id=:2"
         CURSOR.execute(sql, (self.character.health,self.character.id))
-        print("attack failed language")    
+        print(self.attack_fail[random.randint(0, len(self.attack_fail) - 1)].format(
+            attack = attack,
+            enemy_lvl = self.room.enemy.level,
+            item_name = attack,
+            enemy_name = self.room.enemy.enemy_name
+            ))    
             
     def enemy_defeated(self):
         print(f"You have defeated {self.room.enemy.enemy_name}")

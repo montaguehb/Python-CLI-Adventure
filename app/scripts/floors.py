@@ -16,87 +16,52 @@ class Floor():
     update enemy of room to be defeated
     method to check if enemy has been defeated
     """
-    def __init__(self, character):
-        self.rooms = self.get_all_rooms()
-        self.current_room = self.rooms[0]
+    def __init__(self, inventory):
+        self.room = Room.find_room_by_id(1)
         self.defeated = []
-        self.character = character
-        self.score = 0
-        self.enemy = self.current_room.enemy
-
-        
-    def get_all_rooms(self):
-        sql = "SELECT * FROM rooms"
-        return [Room(room[0],
-                     Item.find_item_by_id(1), 
-                     Enemy.find_enemy_by_id(1),
-                     room[3],
-                     room[4],
-                     room[5],
-                     room[6]) 
-                for room in CURSOR.execute(sql).fetchall()]
-        
-        #just getting started on this but relative navigation is pretty tricky
-    def set_room_nav(self):
-        self.previous_room=self.current_room
-        
-    #I'm not sure which of these can be fully managed by Click so I just wrote out all the logic I could think of
-
-    def enter_room(self):
-        print("randomized room description")
-        if self.current_room.enemy:
-            self.enemy_first_encounter()       
-        else:
-            print("you found an item")
-            self.recieve_item()
-                        
-    def enemy_first_encounter(self):
+        self.character = inventory.character
+        self.inventory = inventory
+                    
+    def enemy_encounter(self):
         print(f"oh look a bad guy")
-        print(f"looks like they are weak agaist {self.enemy_weaknesses}")
-        if len(self.enemy_weaknesses)>1:
+        print(f"looks like they are weak agaist {self.enemy_weaknesses()}")
+        if len(self.enemy_weaknesses())>1:
             print("the order is important")
         
     def enemy_weaknesses(self):
-        fight_mechanics = self.current_room.enemy.fight_mechanics
         sql= "SELECT item_description FROM items WHERE item_name=?"
-        return([CURSOR.execute(sql (mechanic,))[-1] for mechanic in fight_mechanics])
+        return([CURSOR.execute(sql, (mechanic,)).fetchone()[-1] for mechanic in self.room.enemy.fight_mechanics])
     
     def enemy_attack_response(self):
         print("the enemy name is getting closer. Attack again!")
-        print(f"it's weak against {self.enemy_weeknesses}")
-        
-
-    def enemy_defeat(self):
-        print(f"You have defeated {self.enemy.name}")
-        self.recieve_item()
-        points = self.enemy.level*100
-        self.score += points
+        print(f"it's weak against {self.enemy_weaknesses()}")
     
     def attack(self, input):
-        enemy = self.current_room.enemy
-        inventory= self.character.invetory
-        inventory_names = (item.item_name for item in inventory)
+        enemy = self.room.enemy
+        inventory_names = (item.item_name for item in self.inventory)
         if input in inventory_names and input == enemy.fight_mechanics[0]:
             enemy.fight_mechanics.pop(0)
             print("attack success language")
-            if enemy.fight_mechanics == []:
-                self.enemy_defeat()
+            if not enemy.fight_mechanics:
+                self.enemy_defeated()
         else:
             self.take_damage()
                 
     def take_damage(self):
-        self.character.health -= self.enemy.level
-        sql = "UPDATE characters SET health=:1, WHERE id=:2"
+        self.character.health -= self.room.enemy.level
+        if self.character.health <=3:
+            print("low health statement")
+        sql = "UPDATE characters SET health=:1 WHERE id=:2"
         CURSOR.execute(sql, (self.character.health,self.character.id))
-        print("attack failed language")
-        if self.character.health <= 0:
-            self.game_over()
-        elif self.character.health <=3:
-            print("low health statement")      
-    
-    def recieve_item(self):
-        print(f"You recieved the {self.room.item.item_name} command. This is used to {self.room.item.item_description}")
-        self.character.inventory.add_new_item(self.room.item)
+        print("attack failed language")    
+            
+    def enemy_defeated(self):
+        print(f"You have defeated {self.room.enemy.enemy_name}")
+        if self.room.item: 
+            self.inventory.add_new_item(self.room.item)
+            self.defeated.append(self.room.enemy)             
+        points = self.enemy.level*100
+        self.score += points
         
     def score_print_set(self):
         if self.character.highest_score < self.score:
@@ -105,11 +70,6 @@ class Floor():
             CURSOR.execute(sql, (self.character.highest_score,self.character.id))
         print(f"Your score is {self.score}")
         
-    def highest_score_print(self):
-        sql= SELECT TOP 5 highest_score FROM characters
-        
-        "SELECT username, highest_score FROM character ORDER desc LIMIT 5"
-        pass 
     
     def game_over(self): 
         print("game over language")

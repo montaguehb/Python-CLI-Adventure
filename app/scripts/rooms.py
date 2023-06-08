@@ -10,15 +10,14 @@ class Room():
     class method to find room by id
     method to generate new room instance from sql query
     """
-    def __init__(self, id, item, enemy, top, bottom, left, right):
+    def __init__(self, id, item, enemy, north, south, west, east):
         self.id = id
-        self.item = item
-        self.enemy = enemy
-        self.top = top
-        self.bottom = bottom
-        self.left = left
-        self.right = right
-
+        self.item = Item.find_item_by_id(item)
+        self.enemy = Enemy.find_enemy_by_id(enemy)
+        self.directions = {"north": north,
+                           "south": south,
+                           "west": west,
+                           "east": east}
     @property
     def id(self):
         return self._id
@@ -36,10 +35,10 @@ class Room():
 
     @item.setter
     def item(self, item):
-        if isinstance(item, Item):
-            self._item
+        if isinstance(item, Item) or item is None:
+            self._item = item
         else:
-            raise AttributeError("item is immutable and must be of type int")
+            raise AttributeError("item is immutable and must be of type item")
         
     @property
     def enemy(self):
@@ -47,57 +46,23 @@ class Room():
 
     @enemy.setter
     def enemy(self, enemy):
-        if isinstance(enemy, Enemy):
-            self._enemy
+        if isinstance(enemy, Enemy) or enemy is None:
+            self._enemy = enemy
         else:
-            raise AttributeError("enemy is immutable and must be of type int")
-        
+            raise AttributeError("enemy is immutable and must be of type enemy")        
 
     @property
-    def top(self):
-        return self._top
+    def directions(self):
+        return self._directions
 
-    @top.setter
-    def top(self, top):
-        if isinstance(top, Room) or top == 1:
-            self._top = top
-        else:
-            raise AttributeError("This needs to be a valid direction: Top, Bottom, Left or Right")
-        
-    @property
-    def bottom(self):
-        return self._bottom
-
-    @bottom.setter
-    def bottom(self, bottom):
-        if isinstance(bottom, Room) or bottom == 1:
-            self._bottom = bottom
-        else:
-            raise AttributeError("This needs to be a valid direction: Top, Bottom, Left or Right")
-        
-    @property
-    def left(self):
-        return self._left
-
-    @top.setter
-    def top(self, left):
-        if isinstance(left, Room) or left == 1:
-            self._left = left
-        else:
-            raise AttributeError("This needs to be a valid direction: Top, Bottom, Left or Right")
-        
-    @property
-    def right(self):
-        return self._right
-
-    @right.setter
-    def right(self, right):
-        if isinstance(right, Room) or right ==1:
-            self._right = right
-        else:
-            raise AttributeError("This needs to be a valid direction: Top, Bottom, Left or Right")
-
-
+    @directions.setter
+    def directions(self, directions):
+        self._directions = {}
+        for key, value in directions.items():
+            if isinstance(value, int) and value >= 0:
+                self._directions[key] = value
+            else:
+                raise AttributeError("This needs to be a valid direction: north, south, west or east")
 
     @classmethod
     def find_room_by_id(cls, id):
@@ -106,10 +71,13 @@ class Room():
             if isinstance(id, int):
                 return cls.new_room(CURSOR.execute(sql, (id, )).fetchone())
             else:
-                raise ValueError
+                raise AttributeError("id is immutable and must be of type int")
         except Exception as e:
             print(e)
-
+    
+    def room_text(self):
+        return "room text"
+            
     @classmethod
     def new_room(cls, rooms):
         return Room(*rooms)

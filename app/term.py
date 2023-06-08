@@ -67,7 +67,7 @@ def check_exit(string):
 def combat(inventory, floor, character):
     if floor.is_enemy_defeated():
         return
-    click.echo(f"you find yourself facing {floor.room.enemy.enemy_name}")
+    floor.enemy_encounter()
     while character.health > 0 and floor.room.enemy.fight_mechanics:
         attack = click.prompt("Attack", type=str)
         check_exit(attack)

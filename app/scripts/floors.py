@@ -21,11 +21,27 @@ class Floor():
         self.defeated = []
         self.character = inventory.character
         self.inventory = inventory
-
-    def attack(self, attack):
+                    
+    def enemy_encounter(self):
+        print(f"oh look a bad guy")
+        print(f"looks like they are weak agaist {self.enemy_weaknesses()}")
+        if len(self.enemy_weaknesses())>1:
+            print("the order is important")
+        
+    def enemy_weaknesses(self):
+        fight_mechanics = self.room.enemy.fight_mechanics
+        sql= "SELECT item_description FROM items WHERE item_name=?"
+        return([CURSOR.execute(sql, (mechanic,)).fetchone()[-1] for mechanic in self.room.enemy.fight_mechanics])
+    
+    def enemy_attack_response(self):
+        print("the enemy name is getting closer. Attack again!")
+        print(f"it's weak against {self.enemy_weaknesses()}")
+    
+    def attack(self, input):
         enemy = self.room.enemy
-        inventory_names = (item.item_name for item in self.inventory.items)
-        if attack in inventory_names and attack == enemy.fight_mechanics[0]:
+        inventory= self.character.invetory
+        inventory_names = (item.item_name for item in inventory)
+        if input in inventory_names and input == enemy.fight_mechanics[0]:
             enemy.fight_mechanics.pop(0)
             print("attack success language")
             if not enemy.fight_mechanics:
@@ -35,6 +51,8 @@ class Floor():
                 
     def take_damage(self):
         self.character.health -= self.room.enemy.level
+        if self.character.health <=3:
+            print("low health statement")
         sql = "UPDATE characters SET health=:1 WHERE id=:2"
         CURSOR.execute(sql, (self.character.health,self.character.id))
         print("attack failed language")    
@@ -43,11 +61,14 @@ class Floor():
         print(f"You have defeated {self.room.enemy.enemy_name}")
         if self.room.item: 
             self.inventory.add_new_item(self.room.item)
-            self.defeated.append(self.room.enemy)
-    
-    def game_over(self): 
-        print("game over language")
-        print("would you like to play again?")
+            self.defeated.append(self.room.enemy)             
+        points = self.enemy.level*100
+        self.score += points
+        
+    def score_print_set(self):
+        if self.character.high_score < self.score:
+            setattr(self.character, "high_score", self.score)
+        print(f"Your score is {self.score}")
     
     def update_room(self, id):
         self.room = Room.find_room_by_id(id)

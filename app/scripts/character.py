@@ -48,9 +48,9 @@ class Character():
     @username.setter
     def username(self, username):
         if(username == "bobby"):
-            # sql = "DELETE FROM characters"
-            # CURSOR.execute(sql)
-            # CONNECTER.commit()
+            sql = "DELETE FROM characters"
+            CURSOR.execute(sql)
+            CONNECTER.commit()
             print("You have been banned from the game")
             sys.exit()   
         elif isinstance(username, str):

@@ -21,6 +21,9 @@ class Floor():
         self.current_room = self.rooms[0]
         self.defeated = []
         self.character = character
+        self.score = 0
+        self.enemy = self.current_room.enemy
+
         
     def get_all_rooms(self):
         sql = "SELECT * FROM rooms"
@@ -32,6 +35,14 @@ class Floor():
                      room[5],
                      room[6]) 
                 for room in CURSOR.execute(sql).fetchall()]
+        
+        #just getting started on this but relative navigation is pretty tricky
+    def set_room_nav(self):
+        self.previous_room=self.current_room
+        
+        
+        
+        
 
     #I'm not sure which of these can be fully managed by Click so I just wrote out all the logic I could think of
 
@@ -56,7 +67,7 @@ class Floor():
         sql= "SELECT item_description FROM items WHERE item_name=?"
         for mechanic in fight_mechanics:
             CURSOR.execute(sql (mechanic,))
-            print()
+            print("fix weakness method")
     
     def enemy_attack_response(self):
         print("the enemy name is getting closer. Attack again!")
@@ -66,6 +77,8 @@ class Floor():
     def enemy_defeat(self):
         print(f"You have defeated {self.enemy.name}")
         self.recieve_item()
+        points = self.enemy.level*100
+        self.score += points
     
     def attack(self, input):
         enemy = self.current_room.enemy
@@ -92,9 +105,16 @@ class Floor():
     def recieve_item(self):
         print(f"You recieved the {self.room.item.item_name} command. This is used to {self.room.item.item_description}")
         self.character.inventory.add_new_item(self.room.item)
+        
+    def score_print_set(self):
+        if self.character.high_score < self.score:
+            setattr(self.character, "high_score", self.score)
+        print(f"Your score is {self.score}")
+        
     
     def game_over(self): 
         print("game over language")
+        self.score_print()     
         print("would you like to play again?")
         if input == "play_again":
             self.play_again()

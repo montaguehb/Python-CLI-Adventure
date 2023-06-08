@@ -9,7 +9,7 @@
     "{username}, your code is under attack! an army of nefarious beings is attempting to take over the world and they’re starting with your ability to have clean version control.  Those enemies have taken all of your Git commands and scattered them throughout the {game.location}, but you can get them back!"
 
     #Directions
-    "We’ve heard dark rumblings from deep in the {location}. Defeat the final boss {enemy_name[1]} and save version control for the world."
+    "We’ve heard dark rumblings from deep in the {location}. Defeat the final boss {boss_name} and save version control for the world."
 
 
     #Game Over Language - Color(RED)
@@ -84,24 +84,10 @@
 
     
 #Low Health Alert
-"{Player.name}, your health has diminished quickly.  Tread carefully for the next encounter may prove to be your last!"
+"{username}, your health has diminished quickly.  Tread carefully for the next encounter may prove to be your last!"
 
 
 #BATTLE MECHANICS LANGUAGE:
-#Attack Success Language
-    "You hear the screams of {enemy_name} as your logic pierces their defenses!"
-    "Your {item_name}s logic whirls towards the {enemy_name} and lands a direct hit. The enemy has been weakened!"
-    "With a quick swipe of your {item_name} you hear the {enemy_name} cry in pain as your logic succeeds! "
-    "The {enemy_name} shrieks in agony as your {item_name} rips through their rotten flesh"
-    "Your {item_name} overwhelms the {enemy_name} and rips off a limb.  Logical attack succeeds!"
-    "You whirl your {item_name} towards the {enemy_name} and their defenses prove worthless against your sound logic.  The enemy weakens!"
-
-#Attack Failure
-    "Despite your best efforts, the {command} is futile and the {enemy_name} launches a counterattack and you take {enemy.lvl} damage."
-    "You launch your attack and are dismayed to find the {item_name} appears to have no effect on the {enemy_name}.  A quick swipe from their viscous claw pierces your armor and you take {enemy.lvl} damage."
-    "Your logic soars through the air but is deflected by the {enemy_name}s defenses.  While your guard is down the {enemy_name} counterattacks and you suffer {enemy.level} damage"
-    "You throw your {item_name} at the {enemy_name} but the {enemy_name}s reflexes are too fast.  They catch the {item_name} and use it to slash through your armor.  You take {enemy.lvl} damage."
-
 #Defeat an Enemy
      "Your power of version control is too much for {enemy_name} you watch victoriously as the {enemy_name} disintegrates before your eyes."
      "Your sound logic overtakes the {enemy_name}.  You hear screams from the {enemy_name} as they retreat into the abyss."

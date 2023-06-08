@@ -6,10 +6,6 @@ CONNECTOR = sqlite3.connect("app/adventure.db")
 CURSOR = CONNECTOR.cursor()
 
 class Room():
-    """_summary_
-    class method to find room by id
-    method to generate new room instance from sql query
-    """
     def __init__(self, id, item, enemy, north, south, west, east):
         self.id = id
         self.item = Item.find_item_by_id(item)
@@ -18,6 +14,7 @@ class Room():
                            "south": south,
                            "west": west,
                            "east": east}
+
     @property
     def id(self):
         return self._id

@@ -30,12 +30,17 @@ def game(character):
     floor = floors.Floor(inventory=inv)
     boss = enemies.Enemy.find_enemy_by_id(1)
     while boss.enemy_name not in (enemy.enemy_name for enemy in floor.defeated):
+        floor.defeated = [boss]
         click.echo(f"{floor.room.room_text()}")
-        combat(inv, floor, character)
+        playing = combat(inv, floor, character)
         if not floor.room.enemy and floor.room.item:
             floor.inventory.add_new_item(floor.room.item)
         move(floor)
-    
+        if not playing:
+            return playing
+    end()
+    return False
+
 def old_char():
     old_char = None
     while not old_char:
@@ -72,7 +77,7 @@ def combat(inventory, floor, character):
         check_exit(attack)
         floor.attack(attack)    
     if character.health <= 0:
-        game_over()    
+        return game_over()    
                        
 def move(floor):
     directions = [key for key, value in floor.room.directions.items() if value > 0]
@@ -93,9 +98,17 @@ def move(floor):
             click.echo("Please input a valid direction")
 
 def game_over():
-    sys.exit()
-    # repeat = click.prompt("play again?", type=str)
-    # check_exit(repeat)
+    click.echo("You've died")
+    while repeat not in ("y", "n"):
+        repeat = click.prompt("play again?", type=str)
+        check_exit(repeat)
+        if repeat == "y":
+            return True
+        elif repeat == "n":
+            return False
+
+def end():
+    pass
 
 def show_commands(command):
     pass
@@ -105,5 +118,7 @@ def read(file):
         return file.read()
                    
 if __name__ == "__main__":
-    main()
+    playing = True
+    while playing:
+        playing = main()
         

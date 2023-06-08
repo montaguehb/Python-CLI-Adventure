@@ -4,14 +4,6 @@ CONNECTER = sqlite3.connect('app/adventure.db')
 CURSOR = CONNECTER.cursor()
 
 class Character():
-    """_summary_
-    class method to find character by id
-    class method to find character by username
-    class method to create a new character instance from a sql query
-    method to update id to match what's stored in the database
-    method to update health based on damage taken from enemy
-    method to update database health to match self.health
-    """
     def __init__(self, id=0, username="", highest_score=0, health=10, inventory=None):
         self.id = id
         self.username = username.lower()

@@ -23,7 +23,7 @@ def start():
 def create_new_char():
     new_char = None
     while not new_char:
-        name = click.prompt("name", type=str)
+        name = click.prompt("name", type=str).lower()
         check_exit(name)
         if not character.Character.find_by_username(name):
             new_char = character.Character(username=name)

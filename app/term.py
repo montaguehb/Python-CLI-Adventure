@@ -36,8 +36,13 @@ def game(character):
         combat(inv, floor, character)
         if not floor.room.enemy and floor.room.item:
             floor.inventory.add_new_item(floor.room.item)
+        if not playing:
+            return playing
         move(floor)
-    
+    end()
+    return False
+
+
 def old_char():
     old_char = None
     while not old_char:
@@ -99,7 +104,7 @@ def game_over():
 
 def show_commands(command):
     pass
-               
+             
 if __name__ == "__main__":
     main()
         

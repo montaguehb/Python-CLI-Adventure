@@ -9,13 +9,16 @@ console = Console(theme=custom_theme)
 
 stdin = click.get_text_stream("stdin")
 
+
 def main():
     character = start()
     game(character)
-    
+
+
 def start():
     console.print(read_("./app/txt/welcome.txt"), style="starting")
     return char_type()
+
 
 def create_new_char():
     new_char = None
@@ -28,6 +31,7 @@ def create_new_char():
             return new_char
         else:
             console.print("User already exists", style="failure")
+
 
 def game(character):
     inv = inventory.Inventory(character)
@@ -64,7 +68,7 @@ def char_type():
         console.print("Before you venture forward, what is your name my brave soul?", style="neutral")
         if user_type == 'y':
             return create_new_char()
-        elif user_type == 'n':
+        elif user_type == "n":
             return old_char()
 
 def check_exit(string):
@@ -72,6 +76,7 @@ def check_exit(string):
         console.print("""It appears your logic is no match for the treacherous beasts of the Git Graveyard!
                     We are not surprised as the Git Graveyard is no place for the faint of heart!""", style="failure")
         sys.exit()
+
 
 def combat(inventory, floor, character):
     if floor.is_enemy_defeated():
@@ -87,11 +92,6 @@ def combat(inventory, floor, character):
 def move(floor):
     directions = [key for key, value in floor.room.directions.items() if value > 0]
     direction = ""
-    # room = click.prompt("room [yn]", type=str)
-    # if room == "y":
-    #     room_id = click.prompt("room_id", type=int)
-    #     floor.update_room(room_id)  
-    # else:
     console.print(f"Which direction do you want to move {directions}", style="character")
     while direction not in directions:
         direction = click.prompt("Direction", type=str).lower()

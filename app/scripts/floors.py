@@ -69,11 +69,14 @@ class Floor():
         console.print(f"looks like they are weak agaist {self.enemy_weaknesses()}", style="character")
         if len(self.enemy_weaknesses())>1:
             print("the order is important")
-        
+
     def enemy_weaknesses(self):
-        sql= "SELECT item_description FROM items WHERE item_name=?"
-        return([CURSOR.execute(sql, (mechanic,)).fetchone()[-1] for mechanic in self.room.enemy.fight_mechanics])
-    
+        sql = "SELECT item_description FROM items WHERE item_name=?"
+        return [
+            CURSOR.execute(sql, (mechanic,)).fetchone()[-1]
+            for mechanic in self.room.enemy.fight_mechanics
+        ]
+
     def enemy_attack_response(self):
         console.print("the enemy name is getting closer. Attack again!", style="character")
         console.print(f"it's weak against {self.enemy_weaknesses()}", style="character")
@@ -124,5 +127,16 @@ class Floor():
 
     def is_enemy_defeated(self):
         return self.room.enemy in self.defeated if self.room.enemy else True
-    
-    
+
+    def game_complete(self):
+        print("you beat the game")
+        print(f"Your Score: {self.score}")
+        self.high_score_print()
+
+    def high_score_print(self):
+        print("High Scores:")
+        print(
+            CURSOR.execute(
+                "SELECT username, highest_score FROM characters LIMIT 5 ORDER BY highest_score DESC"
+            )
+        )

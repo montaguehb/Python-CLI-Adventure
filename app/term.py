@@ -105,7 +105,7 @@ def combat(inventory, floor, character):
         character.display_health()
         attack = click.prompt("Attack", type=str)
         check_exit(attack)
-        show_commands() if attack == "git" else floor.attack(attack)
+        show_commands(floor) if attack == "git" else floor.attack(attack)
     if character.health <= 0:
         return game_over(floor.room.enemy.enemy_name, character)
     return True

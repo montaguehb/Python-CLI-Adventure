@@ -55,7 +55,7 @@ def char_type():
     user_type = ""
     while user_type not in ("y", "n"):
         click.echo("Please input one of these values [yn]")
-        user_type = click.prompt("New character", type=str).lower()
+        user_type = click.prompt("New character?", type=str).lower()
         check_exit(user_type)
         click.echo("Before you venture forward, what is your name my brave soul?")
         if user_type == 'y':

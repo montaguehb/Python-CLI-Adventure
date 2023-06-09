@@ -48,11 +48,11 @@ def game(character):
     floor = floors.Floor(inventory=inv)
     boss = enemies.Enemy.find_enemy_by_id(1)
     while boss.enemy_name not in (enemy.enemy_name for enemy in floor.defeated):
+        move(floor)
         console.print(f"{floor.room.room_text()}", style="neutral")
         playing = combat(inv, floor, character)
         if not floor.room.enemy and floor.room.item:
             floor.inventory.add_new_item(floor.room.item)
-        move(floor)
         if not playing:
             return playing
     end()
@@ -105,7 +105,7 @@ def combat(inventory, floor, character):
         character.display_health()
         attack = click.prompt("Attack", type=str)
         check_exit(attack)
-        show_commands() if attack == "git" else floor.attack(attack)
+        show_commands(floor) if attack == "git" else floor.attack(attack)
     if character.health <= 0:
         return game_over(floor.room.enemy.enemy_name, character)
     return True
@@ -157,7 +157,7 @@ def end():
 
 
 def show_commands(floor):
-    console.print(floor.inventory.items, style="loot")
+    console.print([item.item_name for item in floor.inventory.items], style="loot")
 
 
 def read_(file):

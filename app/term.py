@@ -87,7 +87,8 @@ def combat(inventory, floor, character):
         check_exit(attack)
         show_commands() if attack == "git" else floor.attack(attack)                  
     if character.health <= 0:
-        return game_over(floor.room.enemy.enemy_name, character)    
+        return game_over(floor.room.enemy.enemy_name, character)
+    return True    
 
 def move(floor):
     directions = [key for key, value in floor.room.directions.items() if value > 0]

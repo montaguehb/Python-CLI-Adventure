@@ -76,8 +76,8 @@ class Enemy():
                 return None
             else:
                 raise ValueError
-        except Exception as e:
-            print(e)
+        except Exception:
+            return None
             
     @classmethod
     def new_from_db(cls,enemy):

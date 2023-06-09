@@ -117,8 +117,7 @@ class Character():
             
     def update_id_from_db(self):
         try:
-            self._id = CURSOR.execute("SELECT id FROM characters WHERE id=?", (self.id, )).fetchone()[0]
-            
+            self._id = CURSOR.execute("SELECT id FROM characters WHERE id=?", (self.id, )).fetchone()[0] 
         except Exception:
             return None
 

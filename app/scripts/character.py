@@ -96,8 +96,8 @@ class Character():
     def find_by_username(cls, username):
         sql = "SELECT * FROM characters WHERE username=?"
         try:
-          return cls.new_from_db(*CURSOR.execute(sql, (username,)).fetchone())     
-        except TypeError:
+            return cls.new_from_db(*CURSOR.execute(sql, (username,)).fetchone())
+        except Exception:
             return None
     
     @classmethod

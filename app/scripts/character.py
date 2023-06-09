@@ -133,7 +133,7 @@ class Character:
         except Exception:
             return None
 
-    def health(self):
+    def display_health(self):
         health_lost = 10 - self.health
         health_display = chr(0x2588) + chr(0x2502)
         dash_display = chr(0x2591) + chr(0x2502)

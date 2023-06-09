@@ -122,7 +122,7 @@ def move(floor):
         if direction in directions:
             floor.update_room(floor.room.directions[direction])
             console.print(
-                f"You move {direction} and find yourself in insert floor directions",
+                f"You move {direction}",
                 style="neutral",
             )
         elif direction == "git":

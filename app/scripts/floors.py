@@ -147,11 +147,13 @@ class Floor:
             self.defeated.append(self.room.enemy)
         points = self.room.enemy.level * 100
         self.character.score += points
+        if points == 300:
+            self.game_complete()
 
     def score_print_set(self):
-        if self.character.high_score < self.score:
-            setattr(self.character, "high_score", self.score)
-        console.print(f"Your score is {self.score}", style="character")
+        if self.character.highest_score < self.character.score:
+            setattr(self.character, "highest_score", self.character.score)
+        console.print(f"Your score is {self.character.score}", style="character")
 
     def update_room(self, id):
         self.room = Room.find_room_by_id(id)
@@ -161,13 +163,13 @@ class Floor:
 
     def game_complete(self):
         print("you beat the game")
-        print(f"Your Score: {self.score}")
+        self.score_print_set()
         self.high_score_print()
 
     def high_score_print(self):
         print("High Scores:")
-        print(
-            CURSOR.execute(
-                "SELECT username, highest_score FROM characters LIMIT 5 ORDER BY highest_score DESC"
-            )
+        CURSOR.execute(
+            "SELECT username, highest_score FROM characters ORDER BY highest_score DESC LIMIT 5"
         )
+        for row in CURSOR.fetchall():
+            print(row[0], " ", row[1])

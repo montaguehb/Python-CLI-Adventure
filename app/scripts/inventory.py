@@ -4,10 +4,11 @@ from scripts.items import Item
 from rich.console import Console
 from rich.theme import Theme
 
+
 custom_theme = Theme({"success": "green", "loot": "yellow", "failure": "red", "neutral":"blue", "character":"bold magenta"})
 console = Console(theme=custom_theme)
-CONNECTER = sqlite3.connect('app/adventure.db')
-CURSOR = CONNECTER.cursor()
+CONNECTOR = sqlite3.connect('app/adventure.db')
+CURSOR = CONNECTOR.cursor()
 
 class Inventory():
     def __init__(self, character=None):
@@ -48,7 +49,7 @@ class Inventory():
     def update_new_inventory_db(self, item):
         sql= "INSERT INTO inventory (character_id, item_id) VALUES(?, ?)"
         CURSOR.execute(sql, (self.character.id, item.id))
-        CONNECTER.commit()
+        CONNECTOR.commit()
 
     def pull_existing_inventory(self):
         sql= "SELECT * from inventory"

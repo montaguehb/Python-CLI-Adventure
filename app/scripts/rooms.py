@@ -75,7 +75,7 @@ class Room():
     
     def room_text(self):
         if self.enemy:
-            with open("./app/text/creature_less_room.txt", "r") as file:
+            with open("./app/txt/creature_less_room.txt", "r") as file:
                 return random.choice([file.read().splitlines()])
         return ""
             

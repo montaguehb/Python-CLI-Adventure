@@ -96,7 +96,9 @@ class Character():
     def find_by_username(cls, username):
         sql = "SELECT * FROM characters WHERE username=?"
         try:
-            return cls.new_from_db(*CURSOR.execute(sql, (username,)).fetchone())
+            temp = cls.new_from_db(*CURSOR.execute(sql, (username,)).fetchone())
+            CONNECTER.close()
+            return temp
         except TypeError:
             return None
     
@@ -116,6 +118,7 @@ class Character():
     def update_id_from_db(self):
         try:
             self._id = CURSOR.execute("SELECT id FROM characters WHERE id=?", (self.id, )).fetchone()[0]
+            
         except Exception:
             return None
 

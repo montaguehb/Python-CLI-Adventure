@@ -4,15 +4,15 @@ from scripts.rooms import Room
 from scripts.items import Item
 from scripts.enemies import Enemy
 from scripts.character import Character
-from scripts.inventory import Inventory
+from scripts.inventory import Inventory, CONNECTOR, CURSOR
 from rich.console import Console
 from rich.theme import Theme
 
 custom_theme = Theme({"success": "green", "loot": "yellow", "failure": "red", "neutral":"blue", "character":"bold magenta"})
 console = Console(theme=custom_theme)
 
-CONNECTOR = sqlite3.connect("app/adventure.db")
-CURSOR = CONNECTOR.cursor()
+# CONNECTOR = sqlite3.connect("app/adventure.db")
+# CURSOR = CONNECTOR.cursor()
 
 class Floor():
     def __init__(self, inventory):

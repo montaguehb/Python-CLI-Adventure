@@ -62,7 +62,7 @@ class Enemy():
     @fight_mechanics.setter
     def fight_mechanics(self, fight_mechanics):
         if isinstance(fight_mechanics,str):
-            self._fight_mechanics = fight_mechanics.split(",")
+            self._fight_mechanics = fight_mechanics.split(", ")
         else:
             raise AttributeError("fight_mechanics must be of type str")
         

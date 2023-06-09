@@ -77,9 +77,16 @@ class Room:
         if not self.enemy and self.id not in [1, 4]:
             with open("./app/txt/creature_less_room.txt", "r") as f:
                 return random.choice(f.read().splitlines())
-        if self.id [1, 2, 3, 4]:
+        if self.id[1, 2, 3, 4]:
             with open("app/txt/Room_1_4.txt", "r") as f:
-                return f.read().splitlines()[self.id-1].format(enemy_name = self.enemy.enemy_name, item_description = self.item.item_description)
+                return (
+                    f.read()
+                    .splitlines()[self.id - 1]
+                    .format(
+                        enemy_name=self.enemy.enemy_name,
+                        item_description=self.item.item_description,
+                    )
+                )
         return ""
 
     @classmethod

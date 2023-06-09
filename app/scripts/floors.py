@@ -1,4 +1,5 @@
 import sqlite3
+import random
 from scripts.rooms import Room
 from scripts.items import Item
 from scripts.enemies import Enemy
@@ -8,68 +9,113 @@ from scripts.inventory import Inventory
 CONNECTOR = sqlite3.connect("app/adventure.db")
 CURSOR = CONNECTOR.cursor()
 
-class Floor():
-    """_summary_
-    method to update current room
-    class method to generate rooms from db
-    method to check each turn of battle
-    update enemy of room to be defeated
-    method to check if enemy has been defeated
-    """
+
+class Floor:
     def __init__(self, inventory):
         self.room = Room.find_room_by_id(1)
         self.defeated = []
         self.character = inventory.character
         self.inventory = inventory
-                    
+        self.attack_success = []
+        self.attack_fail = []
+
+    @property
+    def attack_success(self):
+        return self._attack_success
+
+    @attack_success.setter
+    def attack_success(self, attack_success):
+        with open("./app/txt/success.txt", "r") as f:
+            self._attack_success = f.read().splitlines()
+        # sql = "SELECT * FROM text WHERE used=?"
+        # self._attack_success = [text[1] for text in CURSOR.execute(sql, ("success", )).fetchall()]
+
+    @property
+    def attack_fail(self):
+        return self._attack_fail
+
+    @attack_fail.setter
+    def attack_fail(self, attack_fail):
+        with open("./app/txt/failure.txt", "r") as f:
+            self._attack_fail = f.read().splitlines()
+
     def enemy_encounter(self):
         print(f"oh look a bad guy")
         print(f"looks like they are weak agaist {self.enemy_weaknesses()}")
-        if len(self.enemy_weaknesses())>1:
+        if len(self.enemy_weaknesses()) > 1:
             print("the order is important")
-        
+
     def enemy_weaknesses(self):
-        sql= "SELECT item_description FROM items WHERE item_name=?"
-        return([CURSOR.execute(sql, (mechanic,)).fetchone()[-1] for mechanic in self.room.enemy.fight_mechanics])
-    
+        sql = "SELECT item_description FROM items WHERE item_name=?"
+        return [
+            CURSOR.execute(sql, (mechanic,)).fetchone()[-1]
+            for mechanic in self.room.enemy.fight_mechanics
+        ]
+
     def enemy_attack_response(self):
         print("the enemy name is getting closer. Attack again!")
         print(f"it's weak against {self.enemy_weaknesses()}")
-    
-    def attack(self, input):
+
+    def attack(self, attack):
         enemy = self.room.enemy
-        inventory_names = (item.item_name for item in self.inventory)
-        if input in inventory_names and input == enemy.fight_mechanics[0]:
+        inventory_names = (item.item_name for item in self.inventory.items)
+        if attack in inventory_names and attack == enemy.fight_mechanics[0]:
             enemy.fight_mechanics.pop(0)
-            print("attack success language")
+            print(
+                self.attack_success[
+                    random.randint(0, len(self.attack_success) - 1)
+                ].format(enemy_name=self.room.enemy.enemy_name, item_name=attack)
+            )
             if not enemy.fight_mechanics:
                 self.enemy_defeated()
         else:
-            self.take_damage()
-                
-    def take_damage(self):
+            self.take_damage(attack)
+
+    def take_damage(self, attack):
         self.character.health -= self.room.enemy.level
-        if self.character.health <=3:
+        if self.character.health <= 3:
             print("low health statement")
         sql = "UPDATE characters SET health=:1 WHERE id=:2"
-        CURSOR.execute(sql, (self.character.health,self.character.id))
-        print("attack failed language")    
-            
+        CURSOR.execute(sql, (self.character.health, self.character.id))
+        print(
+            self.attack_fail[random.randint(0, len(self.attack_fail) - 1)].format(
+                attack=attack,
+                enemy_lvl=self.room.enemy.level,
+                item_name=attack,
+                enemy_name=self.room.enemy.enemy_name,
+            )
+        )
+
     def enemy_defeated(self):
         print(f"You have defeated {self.room.enemy.enemy_name}")
-        if self.room.item: 
+        if self.room.item:
             self.inventory.add_new_item(self.room.item)
-            self.defeated.append(self.room.enemy)             
-        points = self.enemy.level*100
-        self.score += points
-        
+            self.defeated.append(self.room.enemy)
+        points = self.room.enemy.level * 100
+        self.character.score += points
+        if self.room.enemy.level == 3:
+            self.game_complete()
+
     def score_print_set(self):
         if self.character.high_score < self.score:
             setattr(self.character, "high_score", self.score)
         print(f"Your score is {self.score}")
-    
+
     def update_room(self, id):
         self.room = Room.find_room_by_id(id)
 
     def is_enemy_defeated(self):
         return self.room.enemy in self.defeated if self.room.enemy else True
+
+    def game_complete(self):
+        print("you beat the game")
+        print(f"Your Score: {self.score}")
+        self.high_score_print()
+
+    def high_score_print(self):
+        print("High Scores:")
+        print(
+            CURSOR.execute(
+                "SELECT username, highest_score FROM characters LIMIT 5 ORDER BY highest_score DESC"
+            )
+        )

@@ -1,0 +1,5 @@
+Welcome to pythonic!
+
+Your code is under attack! an army of nefarious beings is attempting to take over the world and they’re starting with your ability to have clean version control.  Those enemies have taken all of your Git commands and scattered them throughout the {game location}, but you can get them back!
+
+Before you venture forward, are you a new player?

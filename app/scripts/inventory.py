@@ -5,10 +5,6 @@ CONNECTER = sqlite3.connect('app/adventure.db')
 CURSOR = CONNECTER.cursor()
 
 class Inventory():
-    """_summary_
-    method to add new items to character inventory
-    method to update db to match self.items
-    """
     def __init__(self, character=None):
         self.character = character
         self.items = []
@@ -47,7 +43,6 @@ class Inventory():
         sql= "INSERT INTO inventory (character_id, item_id) VALUES(?, ?)"
         CURSOR.execute(sql, (self.character.id, item.id))
         CONNECTER.commit()
-
 
     def pull_existing_inventory(self):
         sql= "SELECT * from inventory"

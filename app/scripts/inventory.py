@@ -35,7 +35,8 @@ class Inventory():
         if isinstance(item, Item):
             self.items.append(item)
             self.update_new_inventory_db(item)
-            print(f"You recieved the {item.item_name} command. {item.item_description}")
+            print(f"""Your spoils include {item.item_name}. 
+                  This {item.item_name} can be used to {item.item_description} and may prove useful in your next encounter.""")
         else:
             raise AttributeError("item must be of type Item")
         

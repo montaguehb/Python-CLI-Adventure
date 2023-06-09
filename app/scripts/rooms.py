@@ -1,4 +1,5 @@
 import sqlite3
+import random
 from scripts.items import Item
 from scripts.enemies import Enemy 
 
@@ -73,7 +74,10 @@ class Room():
             print(e)
     
     def room_text(self):
-        return "room text"
+        if self.enemy:
+            with open("./app/text/creature_less_room.txt", "r") as file:
+                return random.choice([file.read().splitlines()])
+        return ""
             
     @classmethod
     def new_room(cls, rooms):

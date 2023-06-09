@@ -1,0 +1,2 @@
+Unfortunately, the power of the {enemy_name} proved to be too much and has taken your remaining life. -GAME OVER-
+Is this where the journey ends or are you brave enough to try again?

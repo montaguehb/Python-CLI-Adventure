@@ -74,9 +74,9 @@ class Room:
             return None
 
     def room_text(self):
-        if self.enemy:
-            with open("./app/txt/creature_less_room.txt", "r") as file:
-                return random.choice([file.read().splitlines()])
+        if not self.enemy and self.id not in [1, 3, 5]:
+            with open("./app/txt/creature_less_room.txt", "r") as f:
+                return random.choice(f.read().splitlines())
         return ""
 
     @classmethod

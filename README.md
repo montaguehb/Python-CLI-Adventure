@@ -9,7 +9,8 @@ Pythonic by Histrenyan, is an action packed adventure game hosted right in your 
 Install
 
 $ git clone git@github.com:montaguehb/Python-CLI-Adventure.git
-$ ./app/term.py
+$ pipenv install
+$ python3 ./app/term.py
 
 Usage
 

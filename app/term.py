@@ -133,6 +133,7 @@ def move(floor):
 
 def game_over(enemy_name, character):
     click.echo(read_("./app/txt/game_over.txt").format(enemy_name=enemy_name))
+    repeat = ""
     while repeat not in ("y", "n"):
         repeat = click.prompt("play again?", type=str)
         check_exit(repeat)

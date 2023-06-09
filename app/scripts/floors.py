@@ -116,7 +116,9 @@ class Floor:
 
     def take_damage(self, attack):
         self.character.health -= self.room.enemy.level
-        if self.character.health <= 3:
+        if self.character.health <= 0:
+            return
+        elif self.character.health <= 3:
             console.print(
                 f"{self.character.username}, your health has diminished quickly.  Tread carefully for the next encounter may prove to be your last!",
                 style="failure",
@@ -124,7 +126,7 @@ class Floor:
         sql = "UPDATE characters SET health=:1 WHERE id=:2"
         CURSOR.execute(sql, (self.character.health, self.character.id))
         console.print(
-            self.attack_fail[random.randint(0, len(self.attack_fail) - 1)].format(
+            random.choice(self.attack_fail).format(
                 attack=attack,
                 enemy_lvl=self.room.enemy.level,
                 item_name=attack,

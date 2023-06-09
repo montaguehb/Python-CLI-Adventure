@@ -169,4 +169,3 @@ if __name__ == "__main__":
     playing = True
     while playing:
         playing = main()
-        playing = main()

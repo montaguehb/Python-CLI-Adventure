@@ -57,7 +57,7 @@ class Floor():
     def attack_fail(self, attack_fail):
         with open("./app/txt/failure.txt", "r") as f:
             self._attack_fail = f.read().splitlines() 
-                               
+
     def enemy_encounter(self):
         print(self.new_monster[random.randint(0, len(self.new_monster) - 1)].format(
                 enemy_name = self.room.enemy.enemy_name))

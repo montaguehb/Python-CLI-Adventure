@@ -153,6 +153,8 @@ class Floor:
     def score_print_set(self):
         if self.character.highest_score < self.character.score:
             setattr(self.character, "highest_score", self.character.score)
+            sql = "UPDATE characters SET highest_score=:1 WHERE id=:2"
+            CURSOR.execute(sql, (self.character.highest_score, self.character.id))
         console.print(f"Your score is {self.character.score}", style="character")
 
     def update_room(self, id):

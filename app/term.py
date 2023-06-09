@@ -102,6 +102,7 @@ def combat(inventory, floor, character):
         return True
     floor.enemy_encounter()
     while character.health > 0 and floor.room.enemy.fight_mechanics:
+        character.display_health()
         attack = click.prompt("Attack", type=str)
         check_exit(attack)
         show_commands(floor) if attack == "git" else floor.attack(attack)

@@ -1,0 +1,6 @@
+You hear the screams of {enemy_name} as your logic pierces their defenses!
+Your {item_name}'s logic whirls towards the {enemy_name} and lands a direct hit. The enemy has been weakened!
+With a quick swipe of your {item_name} you hear the {enemy_name} cry in pain as your logic succeeds! 
+The {enemy_name} shrieks in agony as your {item_name} rips through their rotten flesh
+Your {item_name} overwhelms the {enemy_name} and rips off a limb.  Logical attack succeeds!
+You whirl your {item_name} towards the {enemy_name} and their defenses prove worthless against your sound logic.  The enemy weakens!

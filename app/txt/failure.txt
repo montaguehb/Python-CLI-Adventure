@@ -1,0 +1,4 @@
+Despite your best efforts, the {attack} is futile and the {enemy_name} launches a counterattack and you take {enemy_lvl} damage.
+You launch your attack and are dismayed to find the {item_name} appears to have no effect on the {enemy_name}.  A quick swipe from their viscous claw pierces your armor and you take {enemy_lvl} damage.
+Your logic soars through the air but is deflected by the {enemy_name}s defenses.  While your guard is down the {enemy_name} counterattacks and you suffer {enemy.level} damage
+You throw your {item_name} at the {enemy_name} but the {enemy_name}s reflexes are too fast.  They catch the {item_name} and use it to slash through your armor.  You take {enemy_lvl} damage.

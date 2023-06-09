@@ -1,16 +1,20 @@
 import sqlite3
+import sys
+from rich.console import Console
+from rich.theme import Theme
 CONNECTER = sqlite3.connect('app/adventure.db')
 CURSOR = CONNECTER.cursor()
+custom_theme = Theme({"success": "green", "loot": "yellow", "failure": "red", "neutral":"blue", "character":"bold magenta"})
+console = Console(theme=custom_theme)
 
 class Character():
-    def __init__(self, id=0, username="", health=100, highest_score=0):
+    def __init__(self, id=0, username="", highest_score=0, health=10, inventory=None):
         self.id = id
-        self.username = username
+        self.username = username.lower()
         self.health = health
         self.highest_score = highest_score
         self.score = 0
-        self.current_room = 0
-    
+        
     @property
     def current_room(self):
         return self._current_room
@@ -39,7 +43,13 @@ class Character():
     
     @username.setter
     def username(self, username):
-        if isinstance(username, str):
+        if(username == "bobby"):
+            # sql = "DELETE FROM characters"
+            # CURSOR.execute(sql)
+            # CONNECTER.commit()
+            console.print("You have been banned from the game", style="failure")
+            sys.exit()   
+        elif isinstance(username, str):
             self._username = username
         else:
             raise AttributeError("username must be of type str")
@@ -84,10 +94,10 @@ class Character():
     
     @classmethod
     def find_by_username(cls, username):
-        sql = "SELECT * FROM characters WHERE username = ?"
+        sql = "SELECT * FROM characters WHERE username=?"
         try:
             return cls.new_from_db(*CURSOR.execute(sql, (username,)).fetchone())
-        except TypeError:
+        except Exception:
             return None
     
     @classmethod
@@ -105,6 +115,15 @@ class Character():
             
     def update_id_from_db(self):
         try:
-            self._id = CURSOR.execute("SELECT id FROM characters WHERE username=?", (self.username, )).fetchone()[0]
-        except Exception as e:
-            print(e)
+            self._id = CURSOR.execute("SELECT id FROM characters WHERE id=?", (self.id, )).fetchone()[0] 
+        except Exception:
+            return None
+
+    def health(self):
+        health_lost = 10 - self.health
+        health_display = chr(0x2588) + chr(0x2502)
+        dash_display = chr(0x2591) + chr(0x2502)
+        display_health = health_display * self.health
+        dash_zero = dash_display * health_lost
+        console.print(display_health + dash_zero, style="failure")
+

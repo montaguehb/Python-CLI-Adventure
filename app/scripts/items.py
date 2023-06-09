@@ -34,7 +34,7 @@ class Item():
         
     @property
     def item_description(self):
-        return self._item_name
+        return self._item_description
     
     @item_description.setter
     def item_description(self, item_description):
@@ -42,7 +42,6 @@ class Item():
             self._item_description = item_description
         else:
             raise AttributeError("Item_description must be of type str")
-    
         
     @property
     def item_type(self):
@@ -61,6 +60,8 @@ class Item():
         try:
             if isinstance(id, int):
                 return cls.new_from_db(CURSOR.execute(sql, (id, )).fetchone())
+            elif id == "Null":
+                return None
             else:
                 raise ValueError
         except Exception as e:
@@ -69,7 +70,3 @@ class Item():
     @classmethod
     def new_from_db(cls, args):
         return Item(*args)
-    
-# items = CURSOR.execute("SELECT * FROM items").fetchall()
-# for item in items:
-#     Item(item.items())

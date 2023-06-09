@@ -59,7 +59,10 @@
 #First battle success
 "Great job {username}, beating your first enemy.  Unfortunately, there is no time for celebration as your adventure has only just begun. Make your way through the {location}, battling enemies with your git prowess, but beware, use the wrong command and the enemy will attack. Taking too much damage is the end of the road for you."
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> a5e03799f9e15bb45fcfe47aa90869b4f8e648a0
 #Navigation
     #Previously visited Room
     "It appears you may have lost your way and stumbled into a previously visited room."

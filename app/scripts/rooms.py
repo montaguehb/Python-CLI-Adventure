@@ -1,4 +1,5 @@
 import sqlite3
+import random
 from scripts.items import Item
 from scripts.enemies import Enemy 
 
@@ -69,11 +70,14 @@ class Room():
                 return cls.new_room(CURSOR.execute(sql, (id, )).fetchone())
             else:
                 raise AttributeError("id is immutable and must be of type int")
-        except Exception as e:
-            print(e)
+        except Exception:
+            return None
     
     def room_text(self):
-        return "room text"
+        if self.enemy:
+            with open("./app/txt/creature_less_room.txt", "r") as file:
+                return random.choice([file.read().splitlines()])
+        return ""
             
     @classmethod
     def new_room(cls, rooms):
